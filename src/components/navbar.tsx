@@ -10,9 +10,9 @@ import { Separator } from './ui/separator';
 import { ModeToggle } from './mode-toggle';
 import { DATA } from '@/constants';
 
-const mouseX = useMotionValue(0);
-
 export default function Navbar() {
+
+  const mouseX = useMotionValue(0);
   return (
     <div className='pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex h-full max-h-14 origin-bottom'>
       <div className='fixed inset-x-0 bottom-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background'></div>
