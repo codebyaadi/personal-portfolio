@@ -95,14 +95,8 @@ export const projects = [
     dates: 'Jan 2024 - Feb 2024',
     active: true,
     description:
-      'DALLE-E-Clone is a web application built using OpenAI\'s DALL-E API that generates images from textual prompts. This repository contains the code for the web application, allowing users to easily interact with the DALL-E API and generate their own images.',
-    technologies: [
-      'ReactJS',
-      'JavaScript',
-      'MongoDB',
-      'OpenAI',
-      'Express'
-    ],
+      "DALLE-E-Clone is a web application built using OpenAI's DALL-E API that generates images from textual prompts. This repository contains the code for the web application, allowing users to easily interact with the DALL-E API and generate their own images.",
+    technologies: ['ReactJS', 'JavaScript', 'MongoDB', 'OpenAI', 'Express'],
     links: [
       {
         type: 'Website',
