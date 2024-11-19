@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${DATA.url}/og.jpg`,
+        url: `${DATA.url}/og.png`,
         width: 1200,
         height: 630,
         alt: DATA.name,
