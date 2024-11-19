@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: '@codebyaadi',
     images: [
       {
-        url: `${DATA.url}/og.jpg`,
+        url: `${DATA.url}/og.png`,
         alt: DATA.name,
       },
     ],
