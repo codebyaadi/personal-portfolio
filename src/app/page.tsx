@@ -39,7 +39,7 @@ export default function Home() {
             <BlurFade delay={BLUR_FADE_DELAY}>
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className='text-6xl font-bold font-unbounded tracking-tighter sm:text-5xl xl:text-6xl/none'
+                className='font-unbounded text-6xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'
                 text='a.'
               />
             </BlurFade>

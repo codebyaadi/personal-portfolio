@@ -12,7 +12,7 @@ export default {
     extend: {
       fontFamily: {
         prompt: ['var(--font-prompt)', ...fontFamily.mono],
-        unbounded: ['var(--font-unbounded)', ...fontFamily.mono]
+        unbounded: ['var(--font-unbounded)', ...fontFamily.mono],
       },
       colors: {
         background: 'hsl(var(--background))',
