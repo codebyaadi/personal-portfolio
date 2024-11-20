@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import Navbar from '@/components/navbar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { DATA } from '@/constants';
-import { fontPrompt } from '@/app/fonts';
+import { fontPrompt, fontUnbounded } from '@/app/fonts';
 import './globals.css';
 
 const geistSans = localFont({
@@ -28,10 +28,12 @@ export const metadata: Metadata = {
   description: DATA.description,
   keywords: [
     'React 19',
-    'nextjs',
+    'NextJS Portfolio',
+    'NextJS 15',
     'personal portfolio',
     'developer portfolio',
     'reactjs',
+    'codebyaadi',
   ],
   authors: [
     {
@@ -78,7 +80,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fontPrompt.variable} mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fontPrompt.variable} ${fontUnbounded.variable} mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24`}
       >
         <ThemeProvider
           attribute='class'
