@@ -12,4 +12,4 @@ export const fontUnbounded = Unbounded({
   subsets: ['latin'],
   variable: '--font-unbounded',
   display: 'swap',
-})
+});
