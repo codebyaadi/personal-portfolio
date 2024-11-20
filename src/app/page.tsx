@@ -36,6 +36,13 @@ export default function Home() {
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade> */}
+            <BlurFade delay={BLUR_FADE_DELAY}>
+              <BlurFadeText
+                delay={BLUR_FADE_DELAY}
+                className='text-6xl font-bold font-unbounded tracking-tighter sm:text-5xl xl:text-6xl/none'
+                text='a.'
+              />
+            </BlurFade>
           </div>
         </div>
       </section>
