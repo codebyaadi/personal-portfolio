@@ -70,6 +70,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: {
+    google: process.env.GOOGLE_CONSOLE_KEY,
+  },
 };
 
 export default function RootLayout({
