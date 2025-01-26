@@ -1,31 +1,36 @@
 name: Netlify Deployment Status
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 jobs:
   netlify-status:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      
+      - name: Install Dependencies
+        run: |
+          npm install -g netlify-cli
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: GitHub CLI Authentication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh auth status
 
       - name: Get Netlify Deployment Status
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          # Install netlify-cli
-          npm install -g netlify-cli
-
           # Fetch latest deployment status
-          DEPLOYMENT_INFO=$(netlify sites:list --json | jq '.[] | select(.site_id == env.NETLIFY_SITE_ID)')
+          DEPLOYMENT_INFO=$(netlify sites:list --json | jq ".[] | select(.site_id == \"$NETLIFY_SITE_ID\")")
           DEPLOYMENT_URL=$(echo $DEPLOYMENT_INFO | jq -r '.ssl_url')
           DEPLOYMENT_STATE=$(echo $DEPLOYMENT_INFO | jq -r '.state')
-
+          
           # Set GitHub status based on Netlify deployment
           if [[ "$DEPLOYMENT_STATE" == "ready" ]]; then
             gh api /repos/${{ github.repository }}/statuses/${{ github.sha }} \
