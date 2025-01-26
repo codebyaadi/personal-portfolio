@@ -1,0 +1,42 @@
+name: Netlify Deployment Status
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  netlify-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get Netlify Deployment Status
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          # Install netlify-cli
+          npm install -g netlify-cli
+
+          # Fetch latest deployment status
+          DEPLOYMENT_INFO=$(netlify sites:list --json | jq '.[] | select(.site_id == env.NETLIFY_SITE_ID)')
+          DEPLOYMENT_URL=$(echo $DEPLOYMENT_INFO | jq -r '.ssl_url')
+          DEPLOYMENT_STATE=$(echo $DEPLOYMENT_INFO | jq -r '.state')
+
+          # Set GitHub status based on Netlify deployment
+          if [[ "$DEPLOYMENT_STATE" == "ready" ]]; then
+            gh api /repos/${{ github.repository }}/statuses/${{ github.sha }} \
+              -f state=success \
+              -f target_url=$DEPLOYMENT_URL \
+              -f description="Deployment successful" \
+              -f context="netlify/deployment"
+          else
+            gh api /repos/${{ github.repository }}/statuses/${{ github.sha }} \
+              -f state=failure \
+              -f target_url=$DEPLOYMENT_URL \
+              -f description="Deployment failed" \
+              -f context="netlify/deployment"
+          fi
