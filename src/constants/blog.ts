@@ -136,7 +136,6 @@ async function fetchMediumPosts(): Promise<BlogPost[]> {
     }
 
     const data: MediumRssResponse = await response.json();
-    console.log('data: ', data);
 
     return data.items.filter(isValidMediumRssItem).map((post) => ({
       title: post.title,
