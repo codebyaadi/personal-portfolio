@@ -5,12 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-prompt:
-    var(--font-prompt), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
-  --font-unbounded:
-    var(--font-unbounded), ui-monospace, SFMono-Regular, Menlo, Monaco,
+  --font-prompt: var(--font-prompt), ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --font-unbounded: var(--font-unbounded), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

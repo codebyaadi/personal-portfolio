@@ -36,7 +36,7 @@ export default async function BlogPage() {
           <Link className='mb-4 flex flex-col space-y-1' href={p.url}>
             <div className='flex w-full flex-col'>
               <p className='tracking-tight'>{p.title}</p>
-              <p className='h-6 text-xs text-muted-foreground'>
+              <p className='text-muted-foreground h-6 text-xs'>
                 {formatDate(p.publishedAt)}
               </p>
             </div>
