@@ -34,6 +34,8 @@ export const metadata: Metadata = {
     'developer portfolio',
     'reactjs',
     'codebyaadi',
+    'Aditya Rajbhar',
+    'Aditya Rajbhar Software Developer',
   ],
   authors: [
     {
