@@ -13,7 +13,7 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Home() {
   return (
-    <main className='flex min-h-dvh flex-col space-y-10 font-prompt'>
+    <main className='font-prompt flex min-h-dvh flex-col space-y-10'>
       <section id='hero'>
         <div className='mx-auto w-full max-w-2xl space-y-8'>
           <div className='flex justify-between gap-2'>
@@ -51,7 +51,7 @@ export default function Home() {
           <h2 className='text-xl font-bold'>About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className='prose dark:prose-invert max-w-full text-pretty font-prompt text-sm text-muted-foreground'>
+          <Markdown className='prose dark:prose-invert font-prompt text-muted-foreground max-w-full text-sm text-pretty'>
             {DATA.summary}
           </Markdown>
         </BlurFade>
@@ -125,7 +125,7 @@ export default function Home() {
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
             <div className='flex flex-col items-center justify-center space-y-4 text-center'>
               <div className='space-y-2'>
-                <div className='inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background'>
+                <div className='bg-foreground text-background inline-block rounded-lg px-3 py-1 text-sm'>
                   My Projects
                 </div>
                 <h2 className='text-3xl font-bold tracking-tighter sm:text-5xl'>
@@ -165,13 +165,13 @@ export default function Home() {
         <div className='grid w-full items-center justify-center gap-4 px-4 py-12 text-center md:px-6'>
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className='space-y-3'>
-              <div className='inline-block rounded-lg bg-foreground px-3 py-1 text-sm text-background'>
+              <div className='bg-foreground text-background inline-block rounded-lg px-3 py-1 text-sm'>
                 Contact
               </div>
               <h2 className='text-3xl font-bold tracking-tighter sm:text-5xl'>
                 Get in Touch
               </h2>
-              <p className='mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed'>
+              <p className='text-muted-foreground mx-auto max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed'>
                 Want to chat? Just shoot me a dm{' '}
                 <Link
                   href={DATA.contact.social.X.url}

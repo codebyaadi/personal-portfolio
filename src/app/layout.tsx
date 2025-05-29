@@ -83,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fontPrompt.variable} ${fontUnbounded.variable} mx-auto min-h-screen max-w-2xl bg-background px-6 py-12 font-sans antialiased sm:py-24`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fontPrompt.variable} ${fontUnbounded.variable} bg-background mx-auto min-h-screen max-w-2xl px-6 py-12 font-sans antialiased sm:py-24`}
       >
         <ThemeProvider
           attribute='class'
