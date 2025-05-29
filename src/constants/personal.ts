@@ -2,7 +2,7 @@ export const personal = {
   name: 'Aditya Rajbhar',
   username: 'codebyaadi',
   initials: 'a.',
-  url: 'https://codebyaadi.netlify.app',
+  url: 'https://codebyaadi.com',
   location: 'IN',
   locationLink: '',
   description: 'A passionate Software Engineer from India.',
