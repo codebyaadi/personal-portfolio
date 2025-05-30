@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     template: `%s | ${DATA.name}`,
   },
   description: DATA.description,
+  alternates: {
+    canonical: '/',
+  },
   keywords: [
     'React 19',
     'NextJS Portfolio',
