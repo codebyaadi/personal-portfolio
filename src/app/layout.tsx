@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   description: DATA.description,
   alternates: {
-    canonical: '/',
+    canonical: DATA.url,
   },
   keywords: [
     'React 19',
