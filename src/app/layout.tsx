@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import Navbar from '@/components/navbar';
@@ -80,6 +81,8 @@ export const metadata: Metadata = {
   },
 };
 
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -98,6 +101,13 @@ export default function RootLayout({
         >
           <TooltipProvider delayDuration={0}>
             {children}
+            {umamiWebsiteId && (
+              <Script
+                src='https://cloud.umami.is/script.js'
+                data-website-id={umamiWebsiteId}
+                strategy='afterInteractive'
+              />
+            )}
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
