@@ -8,7 +8,7 @@ export const personal = {
   description: 'A passionate Software Engineer from India.',
   summary:
     'Passionate about leveraging technology and data, I am a Full-Stack Developer and AI Enthusiast skilled in building scalable web applications with TypeScript, Next.js, PostgreSQL, and MongoDB. I’ve led projects like [**Vitube**](https://github.com/codebyaadi/vitube-streaming-platform), a robust video streaming platform, and [**Chatpiece**](https://github.com/codebyaadi/chatpiece), a dynamic social media application. I am open to opportunities that push boundaries and harness technology to create impactful solutions.',
-  avatarUrl: '',
+  avatarUrl: 'me.jpeg',
   skills: [
     'React',
     'Next.js',

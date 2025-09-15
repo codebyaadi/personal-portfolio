@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Markdown from 'react-markdown';
 
-// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { ResumeCard } from '@/components/resume-card';
 import { ProjectCard } from '@/components/project-card';
@@ -30,19 +30,19 @@ export default function Home() {
                 text={DATA.description}
               />
             </div>
-            {/* <BlurFade delay={BLUR_FADE_DELAY}>
+            <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className='size-28 border'>
                 <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
                 <AvatarFallback>{DATA.initials}</AvatarFallback>
               </Avatar>
-            </BlurFade> */}
-            <BlurFade delay={BLUR_FADE_DELAY}>
+            </BlurFade>
+            {/* <BlurFade delay={BLUR_FADE_DELAY}>
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
                 className='font-unbounded text-6xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'
                 text='a.'
               />
-            </BlurFade>
+            </BlurFade> */}
           </div>
         </div>
       </section>
