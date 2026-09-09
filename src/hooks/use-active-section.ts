@@ -3,32 +3,42 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Tracks which in-page section currently sits across the vertical middle of the
- * viewport, for nav active-link highlighting. One IntersectionObserver, tuned
- * so exactly one section is "intersecting" at a time.
+ * Scroll-spy for in-page nav. Picks the last section whose top has crossed a
+ * line ~35% down the viewport, and snaps to the final section once the page is
+ * scrolled to the bottom. Plain scroll math — no gaps between sections, and no
+ * dependence on IntersectionObserver or rAF timing.
  */
 export function useActiveSection(ids: string[]): string {
   const [active, setActive] = useState<string>(ids[0] ?? '');
 
   useEffect(() => {
-    const elements = ids
+    const els = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
+    if (els.length === 0) return;
 
-    if (elements.length === 0) return;
+    const update = () => {
+      const line = Math.max(96, window.innerHeight * 0.3);
+      let currentId = els[0].id;
+      for (const el of els) {
+        if (el.getBoundingClientRect().top <= line) currentId = el.id;
+      }
+      if (
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 2
+      ) {
+        currentId = els[els.length - 1].id;
+      }
+      setActive((prev) => (prev === currentId ? prev : currentId));
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const hit = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (hit) setActive(hit.target.id);
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 1] }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, [ids]);
 
   return active;

@@ -9,6 +9,7 @@ import Script from 'next/script';
 
 import { Nav } from '@/components/site/nav';
 import { Cursor } from '@/components/cursor';
+import { HashScroll } from '@/components/hash-scroll';
 import { RevealObserver } from '@/components/reveal-observer';
 import { ThemeScript } from '@/components/theme-script';
 import { personal } from '@/constants';
@@ -98,7 +99,7 @@ export default function RootLayout({
       </head>
       <body className='min-h-dvh antialiased'>
         <a
-          href='#home'
+          href='#main-content'
           className='focus:bg-accent focus:text-accent-contrast sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm'
         >
           Skip to content
@@ -106,7 +107,8 @@ export default function RootLayout({
         <div className='noise-layer' aria-hidden />
         <Cursor />
         <Nav />
-        <main>{children}</main>
+        <main id='main-content'>{children}</main>
+        <HashScroll />
         <RevealObserver />
         {umamiWebsiteId ? (
           <Script

@@ -7,7 +7,7 @@ export function Contact() {
     <section
       id='contact'
       aria-labelledby='contact-heading'
-      className='relative scroll-mt-24 overflow-hidden py-28 sm:py-40'
+      className='relative scroll-mt-20 overflow-hidden py-28 sm:py-40'
     >
       <div className='grid-bg pointer-events-none absolute inset-0' />
       <div className='pointer-events-none absolute -bottom-1/2 left-1/2 h-[40rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_70%)] blur-3xl' />

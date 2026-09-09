@@ -26,7 +26,7 @@ export function ProjectRow({
         href={primary}
         target='_blank'
         rel='noopener noreferrer'
-        data-cursor
+        data-cursor='Open'
         aria-label={`${project.name} — open project`}
         className={cn(
           'group border-border bg-surface/40 relative col-span-12 block overflow-hidden rounded-2xl border md:col-span-7',

@@ -26,7 +26,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={cn('scroll-mt-24 py-24 sm:py-36', className)}
+      className={cn('scroll-mt-20 py-24 sm:py-36', className)}
     >
       <div className='mx-auto max-w-6xl px-6'>
         <div
