@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useActiveSection } from '@/hooks/use-active-section';
@@ -26,6 +25,8 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const activeSection = useActiveSection(SECTION_IDS);
   const panelRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
 
   const activeId = onHome
     ? activeSection
@@ -40,6 +41,27 @@ export function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Position the sliding indicator under the active desktop item.
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    const el = list?.querySelector<HTMLElement>(`[data-id="${activeId}"]`);
+    if (!list || !el) {
+      setPill(null);
+      return;
+    }
+    setPill({ x: el.offsetLeft, w: el.offsetWidth });
+  }, [activeId, pathname]);
+
+  useEffect(() => {
+    const onResize = () => {
+      const list = listRef.current;
+      const el = list?.querySelector<HTMLElement>(`[data-id="${activeId}"]`);
+      if (list && el) setPill({ x: el.offsetLeft, w: el.offsetWidth });
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [activeId]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -80,46 +102,47 @@ export function Nav() {
           aria-label='Primary'
           className='absolute left-1/2 hidden -translate-x-1/2 lg:block'
         >
-          <ul className='border-border/70 bg-background/40 flex items-center rounded-full border p-1 backdrop-blur-xl'>
+          <ul
+            ref={listRef}
+            className='border-border/70 bg-background/40 relative flex items-center rounded-full border p-1 backdrop-blur-xl'
+          >
+            <span
+              aria-hidden
+              className={cn(
+                'bg-surface-2 absolute top-1 bottom-1 left-0 rounded-full transition-[transform,width,opacity] duration-300 ease-out',
+                pill ? 'opacity-100' : 'opacity-0'
+              )}
+              style={{
+                transform: `translateX(${pill?.x ?? 0}px)`,
+                width: pill?.w ?? 0,
+              }}
+            />
             {DESKTOP_ITEMS.map((item) => {
               const current = activeId === item.id;
               const isSection = item.href.startsWith('#');
-              const cls =
-                'relative block rounded-full px-3.5 py-1.5 text-[13px] transition-colors';
-              const body = (
-                <>
-                  {current ? (
-                    <motion.span
-                      layoutId='nav-active'
-                      className='bg-surface-2 absolute inset-0 rounded-full'
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 32,
-                      }}
-                    />
-                  ) : null}
-                  <span
-                    className={cn(
-                      'relative',
-                      current
-                        ? 'text-foreground'
-                        : 'text-muted hover:text-foreground transition-colors'
-                    )}
-                  >
-                    {item.label}
-                  </span>
-                </>
+              const cls = cn(
+                'relative z-10 block rounded-full px-3.5 py-1.5 text-[13px] transition-colors',
+                current ? 'text-foreground' : 'text-muted hover:text-foreground'
               );
               return (
                 <li key={item.id}>
                   {isSection ? (
-                    <a href={hrefFor(item.href)} className={cls}>
-                      {body}
+                    <a
+                      href={hrefFor(item.href)}
+                      data-id={item.id}
+                      aria-current={current ? 'true' : undefined}
+                      className={cls}
+                    >
+                      {item.label}
                     </a>
                   ) : (
-                    <Link href={item.href} className={cls}>
-                      {body}
+                    <Link
+                      href={item.href}
+                      data-id={item.id}
+                      aria-current={current ? 'page' : undefined}
+                      className={cls}
+                    >
+                      {item.label}
                     </Link>
                   )}
                 </li>

@@ -20,7 +20,7 @@ export function ProjectRow({
   return (
     <article
       data-reveal
-      className='grid items-center gap-8 md:grid-cols-12 md:gap-6'
+      className='grid items-start gap-8 md:grid-cols-12 md:gap-10'
     >
       <a
         href={primary}
@@ -29,7 +29,7 @@ export function ProjectRow({
         data-cursor='Open'
         aria-label={`${project.name} — open project`}
         className={cn(
-          'group border-border bg-surface/40 relative col-span-12 block overflow-hidden rounded-2xl border md:col-span-7',
+          'group border-border bg-surface/40 relative col-span-12 block overflow-hidden rounded-2xl border md:sticky md:top-24 md:col-span-7 md:self-start',
           flipped && 'md:order-2 md:col-start-6'
         )}
       >
