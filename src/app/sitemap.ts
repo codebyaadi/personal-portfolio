@@ -1,19 +1,21 @@
-import { DATA } from '@/constants';
 import type { MetadataRoute } from 'next';
+import { personal } from '@/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return [
     {
-      url: DATA.url,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
+      url: personal.url,
+      lastModified,
+      changeFrequency: 'monthly',
       priority: 1,
+      images: [`${personal.url}/opengraph-image`],
     },
     {
-      url: `${DATA.url}/blog`,
-      lastModified: new Date(),
+      url: `${personal.url}/blog`,
+      lastModified,
       changeFrequency: 'weekly',
-      priority: 0.5,
+      priority: 0.7,
     },
   ];
 }

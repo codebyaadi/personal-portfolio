@@ -1,48 +1,93 @@
-import BlurFade from '@/components/ui/blur-fade';
-import { BlogPost, getBlogPosts } from '@/constants/blog';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { Footer } from '@/components/site/footer';
+import { JsonLd } from '@/components/json-ld';
+import { type BlogPost, getBlogPosts } from '@/constants/blog';
+import { formatDate } from '@/lib/utils';
+import { blogJsonLd } from '@/lib/structured-data';
 
-export const metadata = {
-  title: 'Blog',
-  description: 'My thoughts on software development, life, and more.',
+const description =
+  'Notes on software development, the web platform, and building things — by Aditya Rajbhar.';
+
+export const metadata: Metadata = {
+  title: 'Writing',
+  description,
+  alternates: { canonical: '/blog' },
+  openGraph: {
+    type: 'website',
+    url: '/blog',
+    title: 'Writing · Aditya Rajbhar',
+    description,
+  },
+  twitter: { card: 'summary', title: 'Writing · Aditya Rajbhar', description },
 };
 
 export const revalidate = 3600;
 
-const BLUR_FADE_DELAY = 0.04;
-
 export default async function BlogPage() {
   const posts: BlogPost[] = await getBlogPosts();
 
-  function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }).format(date);
-  }
-
   return (
-    <section className='font-prompt'>
-      <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className='mb-2 text-4xl font-medium tracking-tighter'>blog</h1>
-        <p className='mb-8 text-lg'>
-          My thoughts on software development, life, and more.
-        </p>
-      </BlurFade>
-      {posts.map((p, idx) => (
-        <BlurFade delay={BLUR_FADE_DELAY * 2 + idx * 0.05} key={idx}>
-          <Link className='mb-4 flex flex-col space-y-1' href={p.url}>
-            <div className='flex w-full flex-col'>
-              <p className='tracking-tight'>{p.title}</p>
-              <p className='text-muted-foreground h-6 text-xs'>
-                {formatDate(p.publishedAt)}
-              </p>
-            </div>
-          </Link>
-        </BlurFade>
-      ))}
-    </section>
+    <>
+      <JsonLd data={blogJsonLd(posts)} />
+      <div className='mx-auto max-w-3xl px-6 pt-32 pb-20'>
+        <Link
+          href='/'
+          className='text-faint hover:text-foreground inline-flex items-center gap-1.5 font-mono text-xs transition-colors'
+        >
+          <ArrowLeft className='size-3.5' aria-hidden />
+          Back home
+        </Link>
+
+        <header className='mt-8' data-reveal>
+          <h1 className='text-4xl font-semibold tracking-tight sm:text-5xl'>
+            Writing
+          </h1>
+          <p className='text-muted mt-4 text-lg'>
+            Notes on software development, the web platform, and building
+            things.
+          </p>
+        </header>
+
+        {posts.length === 0 ? (
+          <p className='text-faint mt-16 font-mono text-sm' data-reveal>
+            Nothing published here yet — check back soon.
+          </p>
+        ) : (
+          <ul className='divide-border border-border mt-14 divide-y border-y'>
+            {posts.map((post, i) => (
+              <li key={`${post.url}-${i}`} data-reveal>
+                <a
+                  href={post.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='group flex flex-col gap-1 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6'
+                >
+                  <div className='min-w-0'>
+                    <span className='text-foreground group-hover:text-accent flex items-center gap-2 text-base font-medium transition-colors'>
+                      <span className='truncate'>{post.title}</span>
+                      <ArrowUpRight
+                        className='size-4 shrink-0 opacity-0 transition-opacity group-hover:opacity-100'
+                        aria-hidden
+                      />
+                    </span>
+                    {post.subtitle ? (
+                      <span className='text-muted mt-1 block text-sm'>
+                        {post.subtitle}
+                      </span>
+                    ) : null}
+                  </div>
+                  <span className='text-faint shrink-0 font-mono text-xs tabular-nums'>
+                    {post.platform} · {formatDate(post.publishedAt)}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 }

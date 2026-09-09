@@ -104,8 +104,13 @@ async function fetchHashnodePosts(): Promise<BlogPost[]> {
       body: JSON.stringify({ query }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Hashnode posts: ${response.statusText}`);
+    // No Hashnode publication for this user, or the endpoint returned an
+    // error page — treat as "no posts" rather than a hard failure.
+    if (
+      !response.ok ||
+      !response.headers.get('content-type')?.includes('json')
+    ) {
+      return [];
     }
 
     const responseData: HashnodePostResponse = await response.json();
@@ -119,8 +124,7 @@ async function fetchHashnodePosts(): Promise<BlogPost[]> {
         coverImage: post.coverImage ? { url: post.coverImage.url } : null,
       }))
       .filter(isValidHashnodePost);
-  } catch (error) {
-    console.error('Error fetching Hashnode posts:', error);
+  } catch {
     return [];
   }
 }
@@ -130,14 +134,11 @@ async function fetchMediumPosts(): Promise<BlogPost[]> {
     const rssToJsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(MEDIUM_RSS_URL)}`;
 
     const response = await fetch(rssToJsonUrl);
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Medium posts: ${response.statusText}`);
-    }
+    if (!response.ok) return [];
 
     const data: MediumRssResponse = await response.json();
 
-    return data.items.filter(isValidMediumRssItem).map((post) => ({
+    return (data.items ?? []).filter(isValidMediumRssItem).map((post) => ({
       title: post.title,
       subtitle: null,
       url: post.link,
@@ -146,8 +147,7 @@ async function fetchMediumPosts(): Promise<BlogPost[]> {
       coverImage: post.thumbnail ? { url: post.thumbnail } : null,
       platform: 'Medium' as const,
     }));
-  } catch (error) {
-    console.error('Error fetching Medium posts:', error);
+  } catch {
     return [];
   }
 }
