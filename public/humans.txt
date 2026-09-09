@@ -1,0 +1,12 @@
+/* TEAM */
+  Developer: Aditya Rajbhar
+  Site: codebyaadi.com
+  GitHub: github.com/codebyaadi
+  From: India
+
+/* SITE */
+  Framework: Next.js 16 (App Router)
+  Styling: Tailwind CSS v4
+  Type: Geist, Space Grotesk, Instrument Serif
+  Hosting: Netlify
+  Standards: HTML5, Schema.org, prefers-reduced-motion

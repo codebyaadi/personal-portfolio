@@ -1,0 +1,47 @@
+# Aditya Rajbhar
+
+> Aditya Rajbhar (handle: codebyaadi) is a software engineer from India. He
+> builds full-stack web applications and backend systems across the TypeScript,
+> Go and Python stacks. This is his personal site and portfolio.
+
+From 2024 to 2026 Aditya was a Software Developer at Landmark Aquatec, where he
+built the web platform for the company's water- and sewage-treatment products:
+real-time IoT dashboards over live plant telemetry (sensors, pumps, valves),
+backed by FastAPI services on Google Cloud with Firestore and a React / Next.js
+front end. He also builds open-source projects and writes about software, and is
+open to new roles and projects.
+
+## Focus areas
+
+- Full-stack web development — React, Next.js, Node.js, NestJS, GraphQL
+- Backend and distributed systems — Go, PostgreSQL, Redis, Kafka
+- Cloud and infrastructure — Google Cloud, AWS, Docker, Turborepo, Bun
+- AI-assisted tooling — OpenAI API, Google Gemini, retrieval-augmented generation
+
+## Selected projects
+
+- [Upzy](https://github.com/codebyaadi/upzy): Uptime and performance monitoring
+  platform. Turborepo monorepo with a Next.js dashboard and NestJS services,
+  PostgreSQL via Drizzle, Better Auth; designed for a microservices-first
+  architecture.
+- [Keel](https://github.com/codebyaadi/keel): SaaS starter kit / backbone.
+  Bun + Turborepo monorepo with an ElysiaJS API, Next.js app, Prisma 8,
+  Better Auth (organisations + admin), React Email, and a validated environment.
+- [Feedoku](https://github.com/codebyaadi/feedoku): High-performance RSS feed
+  aggregator. Go API, Next.js reader, PostgreSQL, Redis, Kafka.
+- [Vitube](https://vitube-streaming-platform.vercel.app/): Video streaming and
+  sharing platform on the MERN stack with Cloudinary media handling.
+
+## Links
+
+- Portfolio: https://codebyaadi.com
+- Writing: https://codebyaadi.com/blog
+- GitHub: https://github.com/codebyaadi
+- LinkedIn: https://www.linkedin.com/in/codebyaadi
+- X: https://x.com/codebyaadi
+
+## Contact
+
+The fastest way to reach Aditya is a direct message on X (@codebyaadi). He is
+open to roles and projects involving full-stack product work, distributed
+systems, or AI-assisted tooling.

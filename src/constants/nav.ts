@@ -11,6 +11,7 @@ export const sectionNav: NavItem[] = [
   { id: 'skills', label: 'Skills', href: '#skills' },
   { id: 'projects', label: 'Projects', href: '#projects' },
   { id: 'experience', label: 'Experience', href: '#experience' },
+  { id: 'faq', label: 'FAQ', href: '#faq' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 

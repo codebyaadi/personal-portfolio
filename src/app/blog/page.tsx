@@ -2,13 +2,25 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { Footer } from '@/components/site/footer';
+import { JsonLd } from '@/components/json-ld';
 import { type BlogPost, getBlogPosts } from '@/constants/blog';
 import { formatDate } from '@/lib/utils';
+import { blogJsonLd } from '@/lib/structured-data';
+
+const description =
+  'Notes on software development, the web platform, and building things — by Aditya Rajbhar.';
 
 export const metadata: Metadata = {
   title: 'Writing',
-  description:
-    'Notes on software development, the web platform, and building things — by Aditya Rajbhar.',
+  description,
+  alternates: { canonical: '/blog' },
+  openGraph: {
+    type: 'website',
+    url: '/blog',
+    title: 'Writing · Aditya Rajbhar',
+    description,
+  },
+  twitter: { card: 'summary', title: 'Writing · Aditya Rajbhar', description },
 };
 
 export const revalidate = 3600;
@@ -18,6 +30,7 @@ export default async function BlogPage() {
 
   return (
     <>
+      <JsonLd data={blogJsonLd(posts)} />
       <div className='mx-auto max-w-3xl px-6 pt-32 pb-20'>
         <Link
           href='/'

@@ -17,7 +17,7 @@ export function Contact() {
           className='text-faint font-mono text-xs tracking-[0.18em] uppercase'
           data-reveal
         >
-          05 — Contact
+          06 — Contact
         </p>
         <h2
           id='contact-heading'

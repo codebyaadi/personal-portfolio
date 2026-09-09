@@ -48,6 +48,11 @@ export function Hero() {
             wordClassName='text-gradient'
             startDelay={260}
           />
+          <span className='sr-only'>
+            {' '}
+            — {personal.role}, full-stack &amp; systems developer from{' '}
+            {personal.location}
+          </span>
         </h1>
 
         <p

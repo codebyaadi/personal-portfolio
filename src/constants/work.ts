@@ -16,7 +16,7 @@ export const work: WorkItem[] = [
     title: 'Software Developer',
     location: 'Mumbai, India',
     start: 'May 2024',
-    end: null,
+    end: 'Sep 2026',
     summary:
       'Building the web platform behind the company’s water- and sewage-treatment products — real-time dashboards for plant telemetry (sensors, pumps, valves), status and service reporting, and role-based site and customer administration. FastAPI services on Google Cloud with Firestore, a React / Next.js front end.',
     stack: [

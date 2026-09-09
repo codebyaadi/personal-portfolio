@@ -13,11 +13,26 @@ from real work.
 - **Framework** — [Next.js 16](https://nextjs.org/) (App Router, Turbopack), React 19.2
 - **Styling** — [Tailwind CSS v4](https://tailwindcss.com/), OKLCH design tokens
 - **Type** — Geist + Geist Mono, Space Grotesk (display), Instrument Serif (accent)
-- **Motion** — [`motion`](https://motion.dev/) for the cursor and magnetic buttons; everything
-  else is CSS (scroll-reveal via `IntersectionObserver`, parallax via `animation-timeline: view()`)
+- **Motion** — [`motion`](https://motion.dev/) for the magnetic buttons; everything else
+  is CSS (scroll-reveal via `IntersectionObserver`, parallax via `animation-timeline`,
+  cursor + nav indicator via CSS transitions)
 - **Icons** — [Simple Icons](https://simpleicons.org/) for tech marks, Lucide for UI
 - **Analytics** — Umami (loaded only when `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set)
 - **Hosting** — Netlify, continuous deploy from `main`
+
+## SEO & GEO
+
+- Per-page metadata, canonicals, `profile` Open Graph, generated OG/Twitter
+  images (`next/og`), a web manifest, and generated favicons.
+- **JSON-LD** — `Person` + `WebSite` + `ProfilePage` + project `ItemList` +
+  `FAQPage` on the home page; `Blog` + `BreadcrumbList` on `/blog`
+  (`src/lib/structured-data.ts`).
+- `robots.txt` explicitly welcomes answer-engine crawlers (GPTBot, ClaudeBot,
+  PerplexityBot, Google-Extended, …); `public/llms.txt` gives them a concise,
+  linkable summary of who Aditya is and what he's built.
+- A visible **Quick answers** section whose copy matches the FAQ structured data.
+- Set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` in the environment to add the
+  Search Console verification meta tag.
 
 ## Develop
 
@@ -40,5 +55,5 @@ bun run format
 
 Semantic landmarks, one `<h1>`, visible focus rings, a skip link, and full
 keyboard support. Every animation is gated behind `prefers-reduced-motion` —
-the hero grid freezes, reveals resolve instantly, and the custom cursor does
-not mount.
+the hero grid freezes, reveals resolve instantly, the marquee stops, and the
+custom cursor snaps with no trail.

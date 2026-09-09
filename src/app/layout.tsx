@@ -12,7 +12,7 @@ import { Cursor } from '@/components/cursor';
 import { HashScroll } from '@/components/hash-scroll';
 import { RevealObserver } from '@/components/reveal-observer';
 import { ThemeScript } from '@/components/theme-script';
-import { personal } from '@/constants';
+import { personal, socials } from '@/constants';
 import './globals.css';
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
@@ -32,14 +32,15 @@ const serif = Instrument_Serif({
   style: ['normal', 'italic'],
 });
 
+const title = `${personal.name} — ${personal.role}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(personal.url),
-  title: {
-    default: `${personal.name} — ${personal.role}`,
-    template: `%s · ${personal.name}`,
-  },
+  title: { default: title, template: `%s · ${personal.name}` },
   description: personal.description,
   applicationName: `${personal.name} — Portfolio`,
+  category: 'technology',
+  manifest: '/manifest.webmanifest',
   alternates: { canonical: '/' },
   keywords: [
     'Aditya Rajbhar',
@@ -58,26 +59,50 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: personal.name, url: personal.url }],
   creator: personal.name,
+  publisher: personal.name,
+  formatDetection: { email: false, telephone: false, address: false },
   openGraph: {
-    type: 'website',
+    type: 'profile',
+    firstName: 'Aditya',
+    lastName: 'Rajbhar',
+    username: personal.username,
     locale: 'en_IN',
     url: personal.url,
     siteName: `${personal.name} — Portfolio`,
-    title: `${personal.name} — ${personal.role}`,
+    title,
     description: personal.description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${personal.name} — ${personal.role}`,
+    title,
     description: personal.description,
     creator: '@codebyaadi',
+    site: '@codebyaadi',
   },
-  robots: { index: true, follow: true },
+  appleWebApp: {
+    capable: true,
+    title: personal.name,
+    statusBarStyle: 'black-translucent',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#1a1b1e' },
+    { media: '(prefers-color-scheme: dark)', color: '#131316' },
     { media: '(prefers-color-scheme: light)', color: '#fcfcfd' },
   ],
   colorScheme: 'dark light',
@@ -96,6 +121,9 @@ export default function RootLayout({
     >
       <head>
         <ThemeScript />
+        {socials.map((s) => (
+          <link key={s.name} rel='me' href={s.url} />
+        ))}
       </head>
       <body className='min-h-dvh antialiased'>
         <a

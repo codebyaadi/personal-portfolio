@@ -26,11 +26,11 @@ export function Section({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={cn('scroll-mt-20 py-24 sm:py-36', className)}
+      className={cn('scroll-mt-20 py-20 sm:py-28', className)}
     >
       <div className='mx-auto max-w-6xl px-6'>
         <div
-          className='border-border mb-14 flex flex-col gap-4 border-b pb-6 sm:mb-20 sm:flex-row sm:items-end sm:justify-between'
+          className='border-border mb-12 flex flex-col gap-4 border-b pb-6 sm:mb-16 sm:flex-row sm:items-end sm:justify-between'
           data-reveal
         >
           <div className='flex items-start gap-4 sm:gap-6'>
