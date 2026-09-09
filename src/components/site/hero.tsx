@@ -54,11 +54,11 @@ export function Hero() {
           className='animate-fade-rise text-muted mt-8 max-w-2xl text-lg leading-relaxed sm:text-2xl'
           style={delay(520)}
         >
-          Software engineer building{' '}
+          I build software that holds up under load —{' '}
           <span className='text-foreground font-serif text-[1.12em] italic'>
-            fast, scalable, thoughtful
-          </span>{' '}
-          web applications — from interface to infrastructure.
+            considered interfaces, honest APIs
+          </span>
+          , and systems that scale without drama.
         </p>
 
         <div

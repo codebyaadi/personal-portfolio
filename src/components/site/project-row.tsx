@@ -68,16 +68,17 @@ export function ProjectRow({
           flipped ? 'md:order-1 md:col-start-1' : 'md:col-start-8'
         )}
       >
-        <div className='flex items-baseline gap-4'>
-          <span className='font-display text-border-strong text-4xl font-semibold tabular-nums sm:text-5xl'>
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <span className='text-faint font-mono text-xs tracking-wide uppercase'>
-            {project.category} · {project.year}
-          </span>
-        </div>
+        <span
+          className='font-display text-border-strong block text-6xl leading-none font-semibold tabular-nums sm:text-8xl'
+          aria-hidden
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <p className='text-faint mt-4 font-mono text-xs tracking-wide uppercase'>
+          {project.category} · {project.year}
+        </p>
 
-        <h3 className='mt-3 text-2xl font-semibold tracking-tight sm:text-4xl'>
+        <h3 className='mt-2 text-2xl font-semibold tracking-tight sm:text-4xl'>
           {project.name}
         </h3>
         <p className='text-muted mt-1 font-serif text-lg italic'>

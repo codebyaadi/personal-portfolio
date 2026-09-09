@@ -9,7 +9,7 @@ export function Skills() {
       id='skills'
       index='02'
       title='Skills & Tooling'
-      kicker='The stack I reach for, grouped by where it lives'
+      kicker='What I reach for, grouped by where it lives'
     >
       <div className='border-border border-t'>
         {skillGroups.map((group, i) => (

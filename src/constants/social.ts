@@ -29,6 +29,6 @@ export const socials: SocialLink[] = [
   },
 ];
 
-/** Preferred way to reach out, mirrored from the previous site. */
+/** Preferred way to reach out. */
 export const contactNote =
-  'The fastest way to reach me is a direct message on X with a specific question — I’ll reply when I can. I ignore cold sales pitches.';
+  'I’m always up for a good problem — a product to build, a system to untangle, or a role worth moving for. A direct message on X with a real question is the fastest way in. Cold sales pitches get ignored.';

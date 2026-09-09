@@ -1,15 +1,15 @@
 import { cssVars } from '@/lib/utils';
 
 const ITEMS = [
-  'Full-Stack Development',
+  'Full-Stack Engineering',
   'Distributed Systems',
   'TypeScript',
-  'Next.js',
   'Go',
-  'NestJS',
-  'AI-Assisted Products',
+  'Python',
+  'IoT Dashboards',
+  'AI Tooling',
+  'Secure by Default',
   'Web Performance',
-  'Developer Experience',
   'Open Source',
 ];
 

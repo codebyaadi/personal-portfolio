@@ -47,6 +47,10 @@ export function Nav() {
           : 'border-b border-transparent'
       )}
     >
+      <div
+        className='scroll-progress bg-accent absolute inset-x-0 bottom-0 h-px origin-left'
+        aria-hidden
+      />
       <nav
         aria-label='Primary'
         className='mx-auto flex h-16 max-w-6xl items-center justify-between px-6'

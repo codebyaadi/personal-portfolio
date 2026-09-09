@@ -3,7 +3,7 @@ export interface SkillGroup {
   items: string[];
 }
 
-/** Grouped tech, drawn from what shows up across my repos and day-to-day work. */
+/** Grouped tech — what actually shows up across my repos and my work. */
 export const skillGroups: SkillGroup[] = [
   {
     category: 'Languages',
@@ -26,8 +26,8 @@ export const skillGroups: SkillGroup[] = [
       'Node.js',
       'NestJS',
       'ElysiaJS',
-      'Express',
       'FastAPI',
+      'Express',
       'Spring Boot',
       'GraphQL',
     ],
@@ -36,16 +36,25 @@ export const skillGroups: SkillGroup[] = [
     category: 'Data',
     items: [
       'PostgreSQL',
+      'Firestore',
       'MongoDB',
       'Redis',
       'Prisma',
       'Drizzle',
-      'SQLAlchemy',
+      'Kafka',
     ],
   },
   {
-    category: 'Infra & Tooling',
-    items: ['Docker', 'Turborepo', 'Bun', 'Kafka', 'Vercel', 'Netlify', 'Git'],
+    category: 'Cloud & Infra',
+    items: [
+      'Google Cloud',
+      'AWS',
+      'Docker',
+      'Turborepo',
+      'Bun',
+      'Vercel',
+      'Netlify',
+    ],
   },
   {
     category: 'AI',

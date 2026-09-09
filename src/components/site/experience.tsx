@@ -7,7 +7,10 @@ const github = [
   { label: 'Public repositories', value: '24' },
   { label: 'On GitHub since', value: '2022' },
   { label: 'Primary languages', value: 'TypeScript · Go · Python · Java' },
-  { label: 'Recent focus', value: 'Monorepos · monitoring · RSS + feeds' },
+  {
+    label: 'Recent focus',
+    value: 'Distributed systems · AI tooling · secure-by-default',
+  },
 ];
 
 export function Experience() {
@@ -16,7 +19,7 @@ export function Experience() {
       id='experience'
       index='04'
       title='Experience'
-      kicker='Current role and open-source activity'
+      kicker='What I ship at work, and what I ship on my own'
     >
       <div className='grid gap-16 lg:grid-cols-[1.4fr_1fr] lg:gap-20'>
         <ol className='border-border relative space-y-12 border-l pl-8'>
@@ -86,8 +89,9 @@ export function Experience() {
             ))}
           </dl>
           <p className='text-muted mt-4 text-sm'>
-            I build most things in the open — starter kits, a Go feed
-            aggregator, an interpreter, and small TypeScript packages.
+            Most of what I learn on gets built in the open — a monitoring
+            platform, a SaaS backbone, a high-performance Go backend, and small
+            published packages.
           </p>
         </aside>
       </div>

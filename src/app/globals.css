@@ -212,6 +212,28 @@
   }
 }
 
+/* Cross-document view transitions where supported. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Scroll progress bar — pure CSS, driven by the root scroller. */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes scroll-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Animated link underline. */
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);
