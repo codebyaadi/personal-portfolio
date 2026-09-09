@@ -1,13 +1,10 @@
-import { DATA } from '@/constants';
 import type { MetadataRoute } from 'next';
+import { personal } from '@/constants';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: '/private/',
-    },
-    sitemap: `${DATA.url}/sitemap.xml`,
+    rules: { userAgent: '*', allow: '/' },
+    sitemap: `${personal.url}/sitemap.xml`,
+    host: personal.url,
   };
 }

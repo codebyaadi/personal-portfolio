@@ -1,116 +1,116 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import type { Metadata, Viewport } from 'next';
+import {
+  Geist,
+  Geist_Mono,
+  Instrument_Serif,
+  Space_Grotesk,
+} from 'next/font/google';
 import Script from 'next/script';
 
-import { ThemeProvider } from '@/components/theme-provider';
-import Navbar from '@/components/navbar';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { DATA } from '@/constants';
-import { fontPrompt, fontUnbounded } from '@/app/fonts';
+import { Nav } from '@/components/site/nav';
+import { Cursor } from '@/components/cursor';
+import { RevealObserver } from '@/components/reveal-observer';
+import { ThemeScript } from '@/components/theme-script';
+import { personal } from '@/constants';
 import './globals.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
   variable: '--font-geist-mono',
-  weight: '100 900',
+});
+const display = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['500', '600', '700'],
+});
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  weight: '400',
+  style: ['normal', 'italic'],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DATA.url),
+  metadataBase: new URL(personal.url),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: `${personal.name} — ${personal.role}`,
+    template: `%s · ${personal.name}`,
   },
-  description: DATA.description,
-  alternates: {
-    canonical: '/',
-  },
+  description: personal.description,
+  applicationName: `${personal.name} — Portfolio`,
+  alternates: { canonical: '/' },
   keywords: [
-    'React 19',
-    'NextJS Portfolio',
-    'NextJS 15',
-    'personal portfolio',
-    'developer portfolio',
-    'reactjs',
-    'codebyaadi',
     'Aditya Rajbhar',
-    'Aditya Rajbhar Software Developer',
+    'codebyaadi',
+    'software engineer',
+    'full-stack developer',
+    'Next.js developer',
+    'React developer',
+    'TypeScript',
+    'portfolio',
+    'India',
   ],
-  authors: [
-    {
-      name: DATA.username,
-      url: DATA.url,
-    },
-  ],
-  creator: DATA.name,
+  authors: [{ name: personal.name, url: personal.url }],
+  creator: personal.name,
   openGraph: {
-    title: DATA.name,
-    description: DATA.description,
-    url: DATA.url,
-    siteName: DATA.name,
-    locale: 'en_IN',
     type: 'website',
-    images: [
-      {
-        url: `${DATA.url}/og.png`,
-        width: 1200,
-        height: 630,
-        alt: DATA.name,
-      },
-    ],
+    locale: 'en_IN',
+    url: personal.url,
+    siteName: `${personal.name} — Portfolio`,
+    title: `${personal.name} — ${personal.role}`,
+    description: personal.description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: DATA.name,
-    description: DATA.description,
+    title: `${personal.name} — ${personal.role}`,
+    description: personal.description,
     creator: '@codebyaadi',
-    images: [
-      {
-        url: `${DATA.url}/og.png`,
-        alt: DATA.name,
-      },
-    ],
   },
-  verification: {
-    google: process.env.GOOGLE_CONSOLE_KEY,
-  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#1a1b1e' },
+    { media: '(prefers-color-scheme: light)', color: '#fcfcfd' },
+  ],
+  colorScheme: 'dark light',
 };
 
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fontPrompt.variable} ${fontUnbounded.variable} bg-background mx-auto min-h-screen max-w-2xl px-6 py-12 font-sans antialiased sm:py-24`}
-      >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='light'
-          enableSystem
-          disableTransitionOnChange
+    <html
+      lang='en'
+      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
+      <body className='min-h-dvh antialiased'>
+        <a
+          href='#home'
+          className='focus:bg-accent focus:text-accent-contrast sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm'
         >
-          <TooltipProvider delayDuration={0}>
-            {children}
-            {umamiWebsiteId && (
-              <Script
-                src='https://cloud.umami.is/script.js'
-                data-website-id={umamiWebsiteId}
-                strategy='afterInteractive'
-              />
-            )}
-            <Navbar />
-          </TooltipProvider>
-        </ThemeProvider>
+          Skip to content
+        </a>
+        <div className='noise-layer' aria-hidden />
+        <Cursor />
+        <Nav />
+        <main>{children}</main>
+        <RevealObserver />
+        {umamiWebsiteId ? (
+          <Script
+            src='https://cloud.umami.is/script.js'
+            data-website-id={umamiWebsiteId}
+            strategy='afterInteractive'
+          />
+        ) : null}
       </body>
     </html>
   );

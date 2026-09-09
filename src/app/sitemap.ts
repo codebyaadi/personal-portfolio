@@ -1,19 +1,19 @@
-import { DATA } from '@/constants';
 import type { MetadataRoute } from 'next';
+import { personal } from '@/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: DATA.url,
+      url: personal.url,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: `${DATA.url}/blog`,
+      url: `${personal.url}/blog`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.5,
+      priority: 0.6,
     },
   ];
 }
