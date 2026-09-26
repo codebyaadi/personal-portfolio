@@ -7,7 +7,7 @@ export const work: WorkItem[] = [
     start: 'Sep 2026',
     end: null,
     summary:
-      'Building full-stack applications and AI-powered automation systems across web and mobile platforms.,
+      'Building full-stack applications and AI-powered automation systems across web and mobile platforms.',
     stack: [
       'Next.js',
       'Prisma',
