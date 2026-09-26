@@ -1,4 +1,3 @@
-```ts
 export const work: WorkItem[] = [
   {
     company: 'BrainFog Technologies',
@@ -40,4 +39,3 @@ export const work: WorkItem[] = [
     ],
   },
 ];
-```
