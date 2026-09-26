@@ -1,15 +1,25 @@
-export interface WorkItem {
-  company: string;
-  href: string;
-  title: string;
-  location: string;
-  start: string;
-  end: string | null;
-  summary: string;
-  stack: string[];
-}
-
+```ts
 export const work: WorkItem[] = [
+  {
+    company: 'BrainFog Technologies',
+    href: 'https://brainfogagency.com/',
+    title: 'Full Stack Developer',
+    location: 'Mumbai, India',
+    start: 'Sep 2026',
+    end: null,
+    summary:
+      'Building full-stack applications and AI-powered automation systems across web and mobile platforms.,
+    stack: [
+      'Next.js',
+      'Prisma',
+      'Python',
+      'Android',
+      'MCP',
+      'AI',
+      'LangChain',
+      'LangGraph',
+    ],
+  },
   {
     company: 'Landmark Aquatec',
     href: 'https://landmarkaquatec.com/',
@@ -30,3 +40,4 @@ export const work: WorkItem[] = [
     ],
   },
 ];
+```
