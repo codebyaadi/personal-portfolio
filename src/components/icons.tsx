@@ -40,6 +40,7 @@ import {
   siTypescript,
   siVercel,
   siX,
+  siAndroid,
   type SimpleIcon,
 } from 'simple-icons';
 
@@ -84,6 +85,7 @@ export const techIcons: Record<string, SimpleIcon> = {
   Java: siOpenjdk,
   React: siReact,
   'Next.js': siNextdotjs,
+  Android: siAndroid,
   'Tailwind CSS': siTailwindcss,
   'shadcn/ui': siShadcnui,
   'Ant Design': siAntdesign,
