@@ -1,3 +1,14 @@
+export interface WorkItem {
+  company: string;
+  href: string;
+  title: string;
+  location: string;
+  start: string;
+  end: string | null;
+  summary: string;
+  stack: string[];
+}
+
 export const work: WorkItem[] = [
   {
     company: 'BrainFog Technologies',
