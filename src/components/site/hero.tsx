@@ -91,8 +91,20 @@ export function Hero() {
           </Magnetic>
         </div>
 
+        <p
+          className='animate-fade-rise text-faint mt-10 max-w-2xl font-mono text-xs leading-relaxed sm:text-sm'
+          style={delay(680)}
+        >
+          <span className='text-accent'>Now:</span> Full Stack Developer at
+          BrainFog. Building{' '}
+          <a href='#projects' className='text-foreground hover:text-accent'>
+            Upzy, Lookfar and Avni
+          </a>{' '}
+          on the side.
+        </p>
+
         <ul
-          className='animate-fade-rise mt-12 flex items-center gap-6'
+          className='animate-fade-rise mt-8 flex items-center gap-6'
           style={delay(720)}
         >
           {socials.map(({ name, url, handle, icon: Icon }) => (

@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github, Lock } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { BrandIcon, techIcons } from '@/components/icons';
 import { ProjectCover } from '@/components/site/project-cover';
 import type { Project } from '@/constants/projects';
@@ -22,12 +23,9 @@ export function ProjectRow({
       data-reveal
       className='grid items-start gap-8 md:grid-cols-12 md:gap-10'
     >
-      <a
+      <Cover
         href={primary}
-        target='_blank'
-        rel='noopener noreferrer'
-        data-cursor='Open'
-        aria-label={`${project.name} — open project`}
+        label={`${project.name} — open project`}
         className={cn(
           'group border-border bg-surface/40 relative col-span-12 block overflow-hidden rounded-2xl border md:sticky md:top-24 md:col-span-7 md:self-start',
           flipped && 'md:order-2 md:col-start-6'
@@ -57,10 +55,12 @@ export function ProjectRow({
           )}
         </div>
         <div className='group-hover:ring-accent/40 pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-transparent transition' />
-        <span className='bg-background/80 text-foreground pointer-events-none absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] tracking-wide opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100'>
-          Open <ArrowUpRight className='size-3' />
-        </span>
-      </a>
+        {primary ? (
+          <span className='bg-background/80 text-foreground pointer-events-none absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] tracking-wide opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100'>
+            Open <ArrowUpRight className='size-3' />
+          </span>
+        ) : null}
+      </Cover>
 
       <div
         className={cn(
@@ -75,7 +75,7 @@ export function ProjectRow({
           {String(index + 1).padStart(2, '0')}
         </span>
         <p className='text-faint mt-4 font-mono text-xs tracking-wide uppercase'>
-          {project.category} · {project.year}
+          {project.category} · {project.year} · {project.status}
         </p>
 
         <h3 className='mt-2 text-2xl font-semibold tracking-tight sm:text-4xl'>
@@ -113,7 +113,13 @@ export function ProjectRow({
           ))}
         </ul>
 
-        <div className='mt-6 flex flex-wrap gap-3'>
+        <div className='mt-6 flex flex-wrap items-center gap-3'>
+          {!project.links.some((l) => l.label === 'Source') ? (
+            <span className='border-border text-faint inline-flex items-center gap-1.5 rounded-full border border-dashed px-4 py-2 font-mono text-xs'>
+              <Lock className='size-3.5' aria-hidden />
+              Private repo — walkthrough on request
+            </span>
+          ) : null}
           {project.links.map((link) => (
             <a
               key={link.href}
@@ -136,5 +142,33 @@ export function ProjectRow({
         </div>
       </div>
     </article>
+  );
+}
+
+function Cover({
+  href,
+  label,
+  className,
+  children,
+}: {
+  href?: string;
+  label: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  if (!href) {
+    return <div className={className}>{children}</div>;
+  }
+  return (
+    <a
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+      data-cursor='Open'
+      aria-label={label}
+      className={className}
+    >
+      {children}
+    </a>
   );
 }

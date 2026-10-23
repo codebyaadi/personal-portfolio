@@ -8,12 +8,15 @@ export interface Project {
   name: string;
   year: string;
   category: string;
+  /** Honest state of the project, shown next to the category. */
+  status: string;
   tagline: string;
   description: string;
   highlights: string[];
   stack: string[];
   /** Optional real screenshot; otherwise a designed cover is rendered. */
   image?: string;
+  /** No Source link means the repo is private; the card says so. */
   links: ProjectLink[];
 }
 
@@ -27,29 +30,79 @@ export const projects: Project[] = [
     name: 'Upzy',
     year: '2026',
     category: 'Platform',
-    tagline: 'Uptime monitoring that goes further',
+    status: 'In development',
+    tagline: 'Know it’s down before your customers do',
     description:
-      'A monitoring platform in the spirit of BetterStack — fast uptime checks, smart incident alerts and status pages — built as a Turborepo monorepo with a microservices-first architecture so the parts that do the work can scale on their own.',
+      'Uptime monitoring and external attack-surface security for small teams, in one tool. Checks run every minute, passive scans grade each site A to F, and every finding comes with the exact fix for your stack and a Verify fix button.',
     highlights: [
-      'Next.js dashboard and NestJS services in one Turborepo',
-      'PostgreSQL via Drizzle, sessions handled by Better Auth',
-      'Check workers designed to scale independently of the API',
+      'HTTP, TCP, DNS and SSL checks, heartbeats, and public status pages with custom domains',
+      'Passive scans for certificates, headers, SPF/DMARC, subdomain takeover and CVEs ranked with CISA KEV and EPSS',
+      'SSRF-safe probes that pin the resolved address at connect time; opt-in AI on your own key',
     ],
     stack: [
+      'Bun',
+      'Turborepo',
+      'ElysiaJS',
       'Next.js',
-      'NestJS',
-      'TypeScript',
       'PostgreSQL',
       'Drizzle',
-      'Turborepo',
+      'Better Auth',
     ],
-    links: [{ label: 'Source', href: 'https://github.com/codebyaadi/upzy' }],
+    links: [
+      { label: 'Live', href: 'https://upzy.codebyaadi.com' },
+      { label: 'Source', href: 'https://github.com/codebyaadi/upzy-oss' },
+    ],
+  },
+  {
+    slug: 'lookfar',
+    name: 'Lookfar',
+    year: '2026',
+    category: 'AI agents',
+    status: 'In development',
+    tagline: 'Agents that look far, so you don’t have to',
+    description:
+      'Self-hosted watcher agents you can leave running. Describe what to watch in plain language and Lookfar checks pages, feeds and repos on a schedule, reports only what matters, and asks before it acts on your behalf. It grew out of Feedoku, my earlier RSS aggregator.',
+    highlights: [
+      'No change, no tokens: a free fetch, normalise, hash and diff gate runs before any model is called',
+      'Anything with side effects waits in an approvals inbox with the exact payload shown',
+      'Postgres job queue on FOR UPDATE SKIP LOCKED, SSRF-guarded fetcher, hashed API tokens',
+    ],
+    stack: [
+      'Go',
+      'SvelteKit',
+      'PostgreSQL',
+      'pgvector',
+      'Better Auth',
+      'Docker',
+    ],
+    links: [
+      { label: 'Live', href: 'https://lookfar.codebyaadi.com' },
+      { label: 'Source', href: 'https://github.com/codebyaadi/lookfar' },
+    ],
+  },
+  {
+    slug: 'avni',
+    name: 'Avni',
+    year: '2026',
+    category: 'Voice AI',
+    status: 'In development',
+    tagline: 'A voice layer for everything you own',
+    description:
+      'A speech-first personal assistant that answers in about a second, acts on your devices and services, and asks before anything risky. An Android app talks to a single Rust core that routes each request to the cheapest model tier that can handle it.',
+    highlights: [
+      'Measured over 117 real turns: p50 about 1.0 s from speech-to-text done to first reply text',
+      'Tiered router: on-device rules, then a fast LLM, then a strong LLM, then background agent jobs',
+      'Every STT, TTS and LLM is a swappable provider; tools and skills plug in over MCP',
+    ],
+    stack: ['Rust', 'Kotlin', 'Android', 'MCP', 'SQLite', 'Astro'],
+    links: [{ label: 'Live', href: 'https://avni.codebyaadi.com' }],
   },
   {
     slug: 'keel',
     name: 'Keel',
     year: '2026',
     category: 'Infrastructure',
+    status: 'Open source',
     tagline: 'The backbone every SaaS ends up rebuilding',
     description:
       'An opinionated Bun + Turborepo monorepo that wires up the boring-but-critical parts once — a typed API, auth with organisations and admin, transactional email, a shared component kit and a validated environment — so a real product can start on day one.',
@@ -61,46 +114,6 @@ export const projects: Project[] = [
     stack: ['Bun', 'Turborepo', 'Next.js', 'ElysiaJS', 'Prisma', 'Better Auth'],
     links: [{ label: 'Source', href: 'https://github.com/codebyaadi/keel' }],
   },
-  {
-    slug: 'feedoku',
-    name: 'Feedoku',
-    year: '2025',
-    category: 'Backend',
-    tagline: 'A backend built to prove a point',
-    description:
-      'An open-source RSS aggregator written to push on high-performance backend work in Go — feed collection, caching and search over a scalable, message-driven pipeline, with a Next.js reader on top.',
-    highlights: [
-      'RESTful API in Go, PostgreSQL for storage, Redis for caching',
-      'Kafka pipeline for feed collection and processing',
-      'Full-text search across every subscribed feed',
-    ],
-    stack: ['Go', 'Next.js', 'PostgreSQL', 'Redis', 'Kafka'],
-    links: [{ label: 'Source', href: 'https://github.com/codebyaadi/feedoku' }],
-  },
-  {
-    slug: 'vitube',
-    name: 'Vitube',
-    year: '2024',
-    category: 'Product',
-    tagline: 'A video platform, end to end',
-    description:
-      'A full video streaming and sharing product on the MERN stack — upload, playback and sharing, with Cloudinary handling media storage and delivery and Nodemailer driving the auth and notification email.',
-    highlights: [
-      'Video upload, storage and streaming through Cloudinary',
-      'Authentication and email flows via Nodemailer',
-      'React + Vite front end over a Node / Express API',
-    ],
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Cloudinary'],
-    image:
-      'https://res.cloudinary.com/dh2xj1szg/image/upload/v1732034341/vitube-streaming-platform_txkfoc.png',
-    links: [
-      { label: 'Live', href: 'https://vitube-streaming-platform.vercel.app/' },
-      {
-        label: 'Source',
-        href: 'https://github.com/codebyaadi/vitube-streaming-platform',
-      },
-    ],
-  },
 ];
 
 export interface MoreProject {
@@ -111,6 +124,12 @@ export interface MoreProject {
 
 /** Smaller shipped things — each one is live or published. */
 export const moreProjects: MoreProject[] = [
+  {
+    name: 'Vitube',
+    blurb:
+      'A live video streaming and sharing platform on the MERN stack with Cloudinary.',
+    href: 'https://vitube-streaming-platform.vercel.app/',
+  },
   {
     name: 'utilstash',
     blurb:
