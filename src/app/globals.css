@@ -21,6 +21,15 @@
   --accent-glow: oklch(0.82 0.145 188 / 0.18);
   --grid-line: oklch(1 0 0 / 0.03);
   --noise-opacity: 0.035;
+
+  /* Bento-tile hues for the skills grid — same lightness/chroma family as
+     --accent, spread across the wheel so each category reads distinctly. */
+  --tile-1: var(--accent);
+  --tile-2: oklch(0.82 0.15 35);
+  --tile-3: oklch(0.82 0.14 140);
+  --tile-4: oklch(0.82 0.14 300);
+  --tile-5: oklch(0.82 0.15 85);
+  --tile-6: oklch(0.82 0.13 235);
 }
 
 .light {
@@ -39,6 +48,13 @@
   --accent-glow: oklch(0.5 0.14 215 / 0.12);
   --grid-line: oklch(0 0 0 / 0.04);
   --noise-opacity: 0.02;
+
+  --tile-1: var(--accent);
+  --tile-2: oklch(0.55 0.16 35);
+  --tile-3: oklch(0.5 0.13 140);
+  --tile-4: oklch(0.5 0.15 300);
+  --tile-5: oklch(0.55 0.15 85);
+  --tile-6: oklch(0.5 0.12 235);
 }
 
 @theme inline {

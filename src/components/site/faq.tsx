@@ -7,7 +7,7 @@ export function Faq() {
     <Section
       id='faq'
       index='05'
-      title='Quick answers'
+      title={['Quick', 'Answers']}
       kicker='The questions people usually open with'
     >
       <dl className='divide-border border-border divide-y border-y'>

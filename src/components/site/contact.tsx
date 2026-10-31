@@ -21,10 +21,11 @@ export function Contact() {
         </p>
         <h2
           id='contact-heading'
-          className='mx-auto mt-6 max-w-4xl text-[clamp(2.5rem,8vw,6rem)] leading-[0.95] font-semibold tracking-[-0.03em]'
+          className='mx-auto mt-6 text-[clamp(2.5rem,9vw,6.5rem)] leading-[0.92] font-extrabold tracking-tight uppercase'
           data-reveal
         >
-          Have an idea <span className='text-gradient'>worth building?</span>
+          <span className='block'>Have an idea</span>
+          <span className='text-faint block'>worth building?</span>
         </h2>
         <p
           className='text-muted mx-auto mt-7 max-w-xl leading-relaxed'

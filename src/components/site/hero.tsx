@@ -49,12 +49,15 @@ export function Hero() {
             wordClassName='text-gradient'
             startDelay={260}
           />
-          <span className='sr-only'>
-            {' '}
-            — {personal.role}, full-stack &amp; systems developer from{' '}
-            {personal.location}
-          </span>
         </h1>
+
+        <p
+          className='animate-fade-rise mt-3 text-[clamp(1.5rem,5.5vw,3.25rem)] leading-[0.95] font-extrabold tracking-tight uppercase'
+          style={delay(420)}
+        >
+          <span className='block'>Software</span>
+          <span className='text-faint block'>Engineer, full-stack</span>
+        </p>
 
         <p
           className='animate-fade-rise text-muted mt-8 max-w-2xl text-lg leading-relaxed sm:text-2xl'

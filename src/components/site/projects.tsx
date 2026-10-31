@@ -8,7 +8,7 @@ export function Projects() {
     <Section
       id='projects'
       index='03'
-      title='Selected Projects'
+      title={['Selected', 'Projects']}
       kicker='Four I would happily walk you through, line by line'
     >
       <div className='space-y-20 sm:space-y-28'>

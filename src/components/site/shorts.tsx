@@ -23,9 +23,10 @@ export function Shorts() {
             </p>
             <h2
               id='shorts-heading'
-              className='mx-auto mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-5xl'
+              className='mx-auto mt-4 text-4xl leading-[0.95] font-extrabold tracking-tight uppercase sm:text-6xl'
             >
-              <span className='text-gradient'>New Shorts</span> every week.
+              <span className='block'>New Shorts</span>
+              <span className='text-faint block'>every week</span>
             </h2>
             <p className='text-muted mx-auto mt-5 max-w-lg leading-relaxed'>
               {youtube.line}

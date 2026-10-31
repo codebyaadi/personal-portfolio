@@ -4,15 +4,18 @@ import { cn } from '@/lib/utils';
 interface SectionProps {
   id: string;
   index: string;
-  title: string;
+  /** A single line, or two stacked lines — the second renders muted/outlined. */
+  title: string | [string, string];
   kicker?: string;
   children: ReactNode;
   className?: string;
 }
 
 /**
- * Editorial section shell: oversized mono index, display heading, optional
- * kicker, hairline rule. The heading labels the region for assistive tech.
+ * Section shell: a small mono index, then a heavy all-caps display heading —
+ * one solid line, optionally a second muted/outlined line beneath it — plus
+ * an optional kicker and a hairline rule. The heading labels the region for
+ * assistive tech.
  */
 export function Section({
   id,
@@ -22,6 +25,8 @@ export function Section({
   children,
   className,
 }: SectionProps) {
+  const [main, accent] = Array.isArray(title) ? title : [title, undefined];
+
   return (
     <section
       id={id}
@@ -30,18 +35,21 @@ export function Section({
     >
       <div className='mx-auto max-w-6xl px-6'>
         <div
-          className='border-border mb-12 flex flex-col gap-4 border-b pb-6 sm:mb-16 sm:flex-row sm:items-end sm:justify-between'
+          className='border-border mb-12 flex flex-col gap-6 border-b pb-7 sm:mb-16 sm:flex-row sm:items-end sm:justify-between'
           data-reveal
         >
-          <div className='flex items-start gap-4 sm:gap-6'>
-            <span className='text-accent mt-1 font-mono text-sm tabular-nums'>
+          <div>
+            <span className='text-faint font-mono text-xs tracking-widest uppercase'>
               {index}
             </span>
             <h2
               id={`${id}-heading`}
-              className='text-3xl font-semibold tracking-tight sm:text-5xl'
+              className='mt-2 text-5xl leading-[0.92] font-extrabold tracking-tight uppercase sm:text-7xl'
             >
-              {title}
+              <span className='block'>{main}</span>
+              {accent ? (
+                <span className='text-faint block'>{accent}</span>
+              ) : null}
             </h2>
           </div>
           {kicker ? (
