@@ -81,7 +81,7 @@ export function ProjectRow({
         <h3 className='mt-2 text-2xl font-semibold tracking-tight sm:text-4xl'>
           {project.name}
         </h3>
-        <p className='text-muted mt-1 font-serif text-lg italic'>
+        <p className='text-accent mt-1 text-lg font-medium'>
           {project.tagline}
         </p>
 

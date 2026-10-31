@@ -24,8 +24,7 @@ export function Contact() {
           className='mx-auto mt-6 max-w-4xl text-[clamp(2.5rem,8vw,6rem)] leading-[0.95] font-semibold tracking-[-0.03em]'
           data-reveal
         >
-          Have an idea{' '}
-          <span className='font-serif italic'>worth building?</span>
+          Have an idea <span className='text-gradient'>worth building?</span>
         </h2>
         <p
           className='text-muted mx-auto mt-7 max-w-xl leading-relaxed'

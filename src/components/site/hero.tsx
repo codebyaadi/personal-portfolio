@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { HeroGrid } from '@/components/site/hero-grid';
+import { Stats } from '@/components/site/stats';
 import { AnimatedWords } from '@/components/ui/reveal';
 import { Magnetic } from '@/components/ui/magnetic';
 import { personal, socials } from '@/constants';
@@ -60,15 +61,19 @@ export function Hero() {
           style={delay(520)}
         >
           I build software that holds up under load —{' '}
-          <span className='text-foreground font-serif text-[1.12em] italic'>
+          <span className='text-accent font-semibold'>
             considered interfaces, honest APIs
           </span>
           , and systems that scale without drama.
         </p>
 
+        <div className='animate-fade-rise mt-10' style={delay(600)}>
+          <Stats />
+        </div>
+
         <div
           className='animate-fade-rise mt-10 flex flex-wrap items-center gap-x-3 gap-y-4'
-          style={delay(620)}
+          style={delay(680)}
         >
           <Magnetic strength={0.4}>
             <a
@@ -93,7 +98,7 @@ export function Hero() {
 
         <p
           className='animate-fade-rise text-faint mt-10 max-w-2xl font-mono text-xs leading-relaxed sm:text-sm'
-          style={delay(680)}
+          style={delay(760)}
         >
           <span className='text-accent'>Now:</span> Full Stack Developer at
           BrainFog. Building{' '}
@@ -104,8 +109,8 @@ export function Hero() {
         </p>
 
         <ul
-          className='animate-fade-rise mt-8 flex items-center gap-6'
-          style={delay(720)}
+          className='animate-fade-rise mt-8 flex flex-wrap items-center gap-6'
+          style={delay(820)}
         >
           {socials.map(({ name, url, handle, icon: Icon }) => (
             <li key={name}>

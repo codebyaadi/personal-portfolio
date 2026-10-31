@@ -11,30 +11,27 @@ export function Skills() {
       title='Skills & Tooling'
       kicker='What I reach for, grouped by where it lives'
     >
-      <div className='border-border border-t'>
+      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
         {skillGroups.map((group, i) => (
           <div
             key={group.category}
             data-reveal
-            style={cssVars({ '--reveal-delay': `${i * 50}ms` })}
-            className='border-border grid gap-4 border-b py-8 md:grid-cols-[220px_1fr] md:items-center md:gap-10'
+            style={cssVars({ '--reveal-delay': `${i * 60}ms` })}
+            className='group border-border bg-surface/40 hover:border-accent/60 rounded-2xl border p-6 transition-colors'
           >
-            <h3 className='font-display text-muted text-xl font-medium tracking-tight'>
+            <h3 className='font-display text-lg font-semibold tracking-tight'>
               {group.category}
             </h3>
-            <ul className='flex flex-wrap gap-2.5'>
+            <ul className='mt-4 flex flex-wrap gap-2'>
               {group.items.map((item) => {
                 const icon = techIcons[item];
                 return (
                   <li
                     key={item}
-                    className='group border-border bg-surface/40 text-foreground hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors'
+                    className='border-border bg-surface-2/60 text-muted inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium'
                   >
                     {icon ? (
-                      <BrandIcon
-                        icon={icon}
-                        className='text-faint group-hover:text-accent size-4 transition-colors'
-                      />
+                      <BrandIcon icon={icon} className='text-faint size-3.5' />
                     ) : null}
                     {item}
                   </li>

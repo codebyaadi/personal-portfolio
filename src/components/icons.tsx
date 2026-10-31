@@ -47,6 +47,7 @@ import {
   siVercel,
   siX,
   siAndroid,
+  siYoutube,
   type SimpleIcon,
 } from 'simple-icons';
 
@@ -81,6 +82,7 @@ const social = (icon: SimpleIcon, label: string) =>
 export const GithubIcon = social(siGithub, 'GitHub');
 export const LinkedinIcon = social(siLinkedin, 'LinkedIn');
 export const XIcon = social(siX, 'X');
+export const YoutubeIcon = social(siYoutube, 'YouTube');
 
 /** Lookup for tech chips, keyed by the label used in constants. */
 export const techIcons: Record<string, SimpleIcon> = {

@@ -1,10 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import {
-  Geist,
-  Geist_Mono,
-  Instrument_Serif,
-  Space_Grotesk,
-} from 'next/font/google';
+import { Geist_Mono, Sora } from 'next/font/google';
 import Script from 'next/script';
 
 import { Nav } from '@/components/site/nav';
@@ -15,21 +10,14 @@ import { ThemeScript } from '@/components/theme-script';
 import { personal, socials } from '@/constants';
 import './globals.css';
 
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-sora',
+  display: 'swap',
+});
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
-});
-const display = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['500', '600', '700'],
-});
-const serif = Instrument_Serif({
-  subsets: ['latin'],
-  variable: '--font-serif',
-  weight: '400',
-  style: ['normal', 'italic'],
 });
 
 const title = `${personal.name} — ${personal.role}`;
@@ -116,7 +104,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} ${serif.variable}`}
+      className={`${sora.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>

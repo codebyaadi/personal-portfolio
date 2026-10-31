@@ -1,5 +1,10 @@
 import type { ComponentType, SVGProps } from 'react';
-import { GithubIcon, LinkedinIcon, XIcon } from '@/components/icons';
+import {
+  GithubIcon,
+  LinkedinIcon,
+  XIcon,
+  YoutubeIcon,
+} from '@/components/icons';
 
 export interface SocialLink {
   name: string;
@@ -27,7 +32,20 @@ export const socials: SocialLink[] = [
     url: 'https://x.com/codebyaadi',
     icon: XIcon,
   },
+  {
+    name: 'YouTube',
+    handle: '@codebyaadi',
+    url: 'https://www.youtube.com/@codebyaadi',
+    icon: YoutubeIcon,
+  },
 ];
+
+/** Featured separately from `socials` — the Shorts section gets its own card. */
+export const youtube = {
+  url: 'https://www.youtube.com/@codebyaadi',
+  handle: '@codebyaadi',
+  line: 'Quick builds, real debugging sessions and the occasional rant about tabs vs. spaces — no scripts, no filler.',
+};
 
 /** Preferred way to reach out. */
 export const contactNote =

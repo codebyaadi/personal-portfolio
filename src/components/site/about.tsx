@@ -13,7 +13,7 @@ export function About() {
       <div className='grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20'>
         <div>
           <p
-            className='font-serif text-2xl leading-snug text-balance sm:text-4xl'
+            className='font-display text-2xl leading-snug font-semibold text-balance sm:text-4xl'
             data-reveal
           >
             Good software is mostly good decisions — about data, about
