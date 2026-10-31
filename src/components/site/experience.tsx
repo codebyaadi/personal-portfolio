@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Section } from '@/components/site/section';
 import { BrandIcon, techIcons } from '@/components/icons';
 import { work } from '@/constants';
+import { cssVars } from '@/lib/utils';
 
 const github = [
   { label: 'Public repositories', value: '24' },
@@ -22,9 +23,9 @@ export function Experience() {
       kicker='What I ship at work, and what I ship on my own'
     >
       <div className='grid gap-16 lg:grid-cols-[1.4fr_1fr] lg:gap-20'>
-        <ol className='border-border relative space-y-12 border-l pl-8'>
+        <ol className='border-border relative space-y-12 border-l pl-8' data-reveal>
           {work.map((job) => (
-            <li key={job.company} className='relative' data-reveal>
+            <li key={job.company} className='relative'>
               <span
                 className='border-accent bg-background absolute top-2 -left-[37px] size-3 rounded-full border-2'
                 aria-hidden
@@ -60,8 +61,9 @@ export function Experience() {
         </ol>
 
         <aside
-          className='border-border bg-surface/40 h-fit rounded-2xl border p-7'
           data-reveal
+          style={cssVars({ '--reveal-delay': '80ms' })}
+          className='border-border bg-surface/40 hover:border-accent/40 h-fit rounded-2xl border p-7 transition-colors'
         >
           <h3 className='text-faint font-mono text-[11px] tracking-widest uppercase'>
             Open source
@@ -70,9 +72,11 @@ export function Experience() {
             href='https://github.com/codebyaadi'
             target='_blank'
             rel='noopener noreferrer'
-            className='font-display hover:text-accent mt-3 inline-flex items-center gap-1.5 text-lg font-medium transition-colors'
+            className='font-display hover:text-accent group mt-3 inline-flex items-center gap-1.5 text-lg font-medium transition-colors'
           >
-            github.com/codebyaadi
+            <span className='link-underline group-hover:link-underline-active'>
+              github.com/codebyaadi
+            </span>
             <ArrowUpRight className='size-4' aria-hidden />
           </a>
           <dl className='divide-border border-border mt-5 divide-y border-y'>

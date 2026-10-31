@@ -1,6 +1,5 @@
 import { Section } from '@/components/site/section';
 import { faqs } from '@/constants';
-import { cssVars } from '@/lib/utils';
 
 export function Faq() {
   return (
@@ -10,13 +9,11 @@ export function Faq() {
       title={['Quick', 'Answers']}
       kicker='The questions people usually open with'
     >
-      <dl className='divide-border border-border divide-y border-y'>
-        {faqs.map((item, i) => (
+      <dl className='divide-border border-border divide-y border-y' data-reveal>
+        {faqs.map((item) => (
           <div
             key={item.q}
-            className='grid gap-2 py-6 md:grid-cols-[minmax(0,16rem)_1fr] md:gap-10'
-            data-reveal
-            style={cssVars({ '--reveal-delay': `${i * 50}ms` })}
+            className='hover:bg-surface/30 -mx-4 grid gap-2 rounded-lg px-4 py-6 transition-colors md:grid-cols-[minmax(0,16rem)_1fr] md:gap-10'
           >
             <dt className='font-display text-lg font-medium'>{item.q}</dt>
             <dd className='text-muted leading-relaxed'>{item.a}</dd>

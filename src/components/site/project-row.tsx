@@ -33,17 +33,15 @@ export function ProjectRow({
       >
         <div className='aspect-[16/10] overflow-hidden'>
           {project.image ? (
-            <div className='parallax-img size-full'>
-              <Image
-                src={project.image}
-                alt={`${project.name} — ${project.tagline}`}
-                width={1120}
-                height={700}
-                sizes='(min-width: 768px) 58vw, 100vw'
-                loading='lazy'
-                className='size-full scale-[1.06] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-110'
-              />
-            </div>
+            <Image
+              src={project.image}
+              alt={`${project.name} — ${project.tagline}`}
+              width={1120}
+              height={700}
+              sizes='(min-width: 768px) 58vw, 100vw'
+              loading='lazy'
+              className='size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105'
+            />
           ) : (
             <div className='size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]'>
               <ProjectCover
@@ -164,7 +162,6 @@ function Cover({
       href={href}
       target='_blank'
       rel='noopener noreferrer'
-      data-cursor='Open'
       aria-label={label}
       className={className}
     >

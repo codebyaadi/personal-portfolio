@@ -3,7 +3,6 @@ import { Geist_Mono, Sora } from 'next/font/google';
 import Script from 'next/script';
 
 import { Nav } from '@/components/site/nav';
-import { Cursor } from '@/components/cursor';
 import { HashScroll } from '@/components/hash-scroll';
 import { RevealObserver } from '@/components/reveal-observer';
 import { ThemeScript } from '@/components/theme-script';
@@ -121,7 +120,6 @@ export default function RootLayout({
           Skip to content
         </a>
         <div className='noise-layer' aria-hidden />
-        <Cursor />
         <Nav />
         <main id='main-content'>{children}</main>
         <HashScroll />

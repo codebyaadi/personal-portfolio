@@ -40,7 +40,7 @@ export default async function BlogPage() {
           Back home
         </Link>
 
-        <header className='mt-8' data-reveal>
+        <header className='mt-8'>
           <h1 className='text-4xl font-semibold tracking-tight sm:text-5xl'>
             Writing
           </h1>
@@ -51,13 +51,13 @@ export default async function BlogPage() {
         </header>
 
         {posts.length === 0 ? (
-          <p className='text-faint mt-16 font-mono text-sm' data-reveal>
+          <p className='text-faint mt-16 font-mono text-sm'>
             Nothing published here yet — check back soon.
           </p>
         ) : (
           <ul className='divide-border border-border mt-14 divide-y border-y'>
             {posts.map((post, i) => (
-              <li key={`${post.url}-${i}`} data-reveal>
+              <li key={`${post.url}-${i}`}>
                 <a
                   href={post.url}
                   target='_blank'

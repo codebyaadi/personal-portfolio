@@ -11,14 +11,14 @@ import { BrandIcon, techIcons } from '@/components/icons';
 import { skillGroups } from '@/constants';
 import { cssVars } from '@/lib/utils';
 
-/** One glyph and one tile hue per category, in `skillGroups` order. */
-const categoryStyle: Record<string, { icon: typeof Code2; tile: string }> = {
-  Languages: { icon: Code2, tile: 'var(--tile-1)' },
-  Frontend: { icon: LayoutPanelTop, tile: 'var(--tile-2)' },
-  Backend: { icon: Server, tile: 'var(--tile-3)' },
-  Data: { icon: Database, tile: 'var(--tile-4)' },
-  'Cloud & Infra': { icon: Cloud, tile: 'var(--tile-5)' },
-  AI: { icon: Sparkles, tile: 'var(--tile-6)' },
+/** One glyph per category, in `skillGroups` order — monochrome throughout. */
+const categoryIcon: Record<string, typeof Code2> = {
+  Languages: Code2,
+  Frontend: LayoutPanelTop,
+  Backend: Server,
+  Data: Database,
+  'Cloud & Infra': Cloud,
+  AI: Sparkles,
 };
 
 export function Skills() {
@@ -29,48 +29,46 @@ export function Skills() {
       title={['Skills &', 'Tooling']}
       kicker='What I reach for, grouped by where it lives'
     >
-      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-        {skillGroups.map((group, i) => {
-          const style = categoryStyle[group.category];
-          const Icon = style?.icon ?? Code2;
-          return (
-            <div
-              key={group.category}
-              data-reveal
-              style={cssVars({ '--reveal-delay': `${i * 60}ms` })}
-              className='group border-border bg-surface/40 hover:border-accent/60 rounded-2xl border p-6 transition-colors'
-            >
+      <div
+        className='border-border bg-surface/30 rounded-[2rem] border p-2 sm:p-3'
+        data-reveal
+      >
+        <div className='grid gap-2 sm:grid-cols-2 lg:grid-cols-3'>
+          {skillGroups.map((group, i) => {
+            const Icon = categoryIcon[group.category] ?? Code2;
+            return (
               <div
-                className='grid size-10 place-items-center rounded-xl'
-                style={{ background: style?.tile, color: 'var(--bg)' }}
+                key={group.category}
+                data-reveal
+                style={cssVars({ '--reveal-delay': `${i * 50}ms` })}
+                className='group bg-background border-border hover:border-accent/50 hover:-translate-y-0.5 rounded-[1.4rem] border p-6 transition-[transform,border-color] duration-200'
               >
-                <Icon className='size-5' strokeWidth={2.25} />
+                <div className='bg-surface-2 text-foreground grid size-10 place-items-center rounded-xl transition-transform duration-200 group-hover:scale-105'>
+                  <Icon className='size-5' strokeWidth={2} />
+                </div>
+                <h3 className='font-display mt-4 text-lg font-semibold tracking-tight'>
+                  {group.category}
+                </h3>
+                <ul className='mt-4 flex flex-wrap gap-2'>
+                  {group.items.map((item) => {
+                    const icon = techIcons[item];
+                    return (
+                      <li
+                        key={item}
+                        className='border-border text-muted inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium'
+                      >
+                        {icon ? (
+                          <BrandIcon icon={icon} className='size-3.5' />
+                        ) : null}
+                        {item}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
-              <h3 className='font-display mt-4 text-lg font-semibold tracking-tight'>
-                {group.category}
-              </h3>
-              <ul className='mt-4 flex flex-wrap gap-2'>
-                {group.items.map((item) => {
-                  const icon = techIcons[item];
-                  return (
-                    <li
-                      key={item}
-                      className='border-border bg-surface-2/60 text-muted inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium'
-                    >
-                      {icon ? (
-                        <BrandIcon
-                          icon={icon}
-                          className='text-faint size-3.5'
-                        />
-                      ) : null}
-                      {item}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </Section>
   );

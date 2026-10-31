@@ -1,5 +1,4 @@
 import { Hero } from '@/components/site/hero';
-import { Marquee } from '@/components/site/marquee';
 import { About } from '@/components/site/about';
 import { Skills } from '@/components/site/skills';
 import { Projects } from '@/components/site/projects';
@@ -16,7 +15,6 @@ export default function HomePage() {
     <>
       <JsonLd data={homeJsonLd()} />
       <Hero />
-      <Marquee />
       <About />
       <Skills />
       <Projects />

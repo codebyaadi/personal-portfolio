@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { AnimatedWords } from '@/components/ui/reveal';
 import { cn } from '@/lib/utils';
 
 interface SectionProps {
@@ -46,9 +47,15 @@ export function Section({
               id={`${id}-heading`}
               className='mt-2 text-5xl leading-[0.92] font-extrabold tracking-tight uppercase sm:text-7xl'
             >
-              <span className='block'>{main}</span>
+              <AnimatedWords as='span' text={main} className='block' />
               {accent ? (
-                <span className='text-faint block'>{accent}</span>
+                <AnimatedWords
+                  as='span'
+                  text={accent}
+                  className='block'
+                  wordClassName='text-faint'
+                  startDelay={80}
+                />
               ) : null}
             </h2>
           </div>

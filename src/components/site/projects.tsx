@@ -50,9 +50,11 @@ export function Projects() {
           href='https://github.com/codebyaadi'
           target='_blank'
           rel='noopener noreferrer'
-          className='text-faint hover:text-foreground mt-6 inline-flex items-center gap-1.5 font-mono text-xs transition-colors'
+          className='text-faint hover:text-foreground group mt-6 inline-flex items-center gap-1.5 font-mono text-xs transition-colors'
         >
-          Everything else is on GitHub
+          <span className='link-underline group-hover:link-underline-active'>
+            Everything else is on GitHub
+          </span>
           <ArrowUpRight className='size-3.5' aria-hidden />
         </a>
       </div>

@@ -4,10 +4,9 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 /**
- * Adds `.is-visible` to `[data-reveal]` elements as they scroll into view.
- * The `.js` class is set earlier by the blocking ThemeScript, so these elements
- * are already hidden at first paint and simply fade in here. Re-scans on route
- * change so the /blog page animates too.
+ * Minimal scroll reveal: adds `.is-visible` to `[data-reveal]` elements as
+ * they enter the viewport — a short fade + small rise, nothing choreographed
+ * per-word. Re-scans on route change so the /blog page gets it too.
  */
 export function RevealObserver() {
   const pathname = usePathname();
@@ -35,7 +34,7 @@ export function RevealObserver() {
           }
         }
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.1 }
     );
 
     targets.forEach((el) => observer.observe(el));
