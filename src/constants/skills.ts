@@ -14,7 +14,6 @@ export const skillGroups: SkillGroup[] = [
       'Go',
       'Rust',
       'Kotlin',
-      'Java',
     ],
   },
   {

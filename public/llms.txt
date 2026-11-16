@@ -1,19 +1,22 @@
 # Aditya Rajbhar
 
 > Aditya Rajbhar (handle: codebyaadi) is a software engineer from India. He
-> builds full-stack web applications and backend systems across the TypeScript,
-> Go and Python stacks. This is his personal site and portfolio.
+> builds full-stack web applications, Android apps and backend systems across
+> TypeScript, Kotlin, Go and Python. This is his personal site and portfolio.
 
 Since September 2026 Aditya has been a Full Stack Developer at BrainFog
-Technologies (Next.js, Prisma, Python, Android, MCP, LangChain, LangGraph). From
+Technologies, building Android apps in Kotlin, Next.js web apps, Python backends
+and AI agents (Kotlin, Android, Next.js, Prisma, Python, LangChain, LangGraph, MCP). From
 2024 to 2026 he was a Software Developer at Landmark Aquatec, building the web
 platform for water- and sewage-treatment products: real-time IoT dashboards
 over live plant telemetry, backed by FastAPI services on Google Cloud with
-Firestore and a React / Next.js front end. He is open to new roles and projects.
+Firestore and a React / Next.js front end. He is not looking for a new role, but
+is open to side projects and collaborations.
 
 ## Focus areas
 
 - Full-stack web development — React, Next.js, SvelteKit, Node.js, ElysiaJS, NestJS
+- Mobile — Kotlin, Android
 - Backend and distributed systems — Go, Rust, PostgreSQL, Redis, job queues
 - AI agents and tooling — MCP, LangGraph, retrieval, tool use, voice pipelines
 - Cloud and infrastructure — Google Cloud, AWS, Docker, Turborepo, Bun
@@ -43,6 +46,6 @@ Firestore and a React / Next.js front end. He is open to new roles and projects.
 
 ## Contact
 
-The fastest way to reach Aditya is a direct message on X (@codebyaadi). He is
-open to roles and projects involving full-stack product work, distributed
-systems, or AI-assisted tooling.
+The fastest way to reach Aditya is a direct message on X (@codebyaadi). He works
+full-time and is open to side projects and collaborations involving full-stack
+product work, distributed systems, or AI-assisted tooling.

@@ -7,6 +7,6 @@
 /* SITE */
   Framework: Next.js 16 (App Router)
   Styling: Tailwind CSS v4
-  Type: Geist, Space Grotesk, Instrument Serif
+  Type: Fraunces, Geist, Geist Mono
   Hosting: Netlify
   Standards: HTML5, Schema.org, prefers-reduced-motion

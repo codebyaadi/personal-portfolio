@@ -145,7 +145,7 @@ export const moreProjects: MoreProject[] = [
   {
     name: 'movies-api',
     blurb:
-      'A deployed REST API for movies and reviews, built with Java and Spring Boot.',
+      'A deployed REST API for movies and reviews, built with Spring Boot.',
     href: 'https://github.com/codebyaadi/movies-api-springboot',
   },
   {

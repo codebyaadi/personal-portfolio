@@ -2,20 +2,21 @@
 
 [![Live on Netlify](https://img.shields.io/badge/Live%20on-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://codebyaadi.com)
 
-My personal portfolio — a dark-first, single-page site with an interactive
-hero, scroll-driven motion, a custom pointer, and a projects section built
-from real work.
+My personal portfolio, drawn as an engineering drawing set: a blueprint cover
+sheet with an X-ray lens, projects as animated architecture figures, the stack
+as an exploded isometric section, and work history as a revision block.
 
 🌐 **[codebyaadi.com](https://codebyaadi.com)**
 
 ## Stack
 
 - **Framework** — [Next.js 16](https://nextjs.org/) (App Router, Turbopack), React 19.2
-- **Styling** — [Tailwind CSS v4](https://tailwindcss.com/), OKLCH design tokens
-- **Type** — Geist + Geist Mono, Space Grotesk (display), Instrument Serif (accent)
-- **Motion** — [`motion`](https://motion.dev/) for the magnetic buttons; everything else
-  is CSS (scroll-reveal via `IntersectionObserver`, parallax via `animation-timeline`,
-  cursor + nav indicator via CSS transitions)
+- **Styling** — [Tailwind CSS v4](https://tailwindcss.com/); two inks and a paper
+  (ultramarine, vermilion, cream) — blueprint by default, paper as the light theme
+- **Type** — Fraunces (display), Geist (text), Geist Mono (annotations)
+- **Motion** — CSS and SVG only: a masked second layer for the hero lens (three CSS
+  variables driven by one rAF loop), SMIL packets on the figures, scroll-reveal via
+  `IntersectionObserver`, nav progress via `animation-timeline`
 - **Icons** — [Simple Icons](https://simpleicons.org/) for tech marks, Lucide for UI
 - **Analytics** — Umami (loaded only when `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set)
 - **Hosting** — Netlify, continuous deploy from `main`
@@ -48,12 +49,12 @@ bun run format
 
 - `src/app` — routes, metadata, generated OG image, blog
 - `src/components/site` — page sections (hero, projects, experience, contact …)
-- `src/components` — cross-cutting UI (cursor, theme toggle, reveal observer)
+- `src/components` — cross-cutting UI (theme toggle, reveal observer)
 - `src/constants` — all site content as plain data modules
 
 ## Accessibility & motion
 
 Semantic landmarks, one `<h1>`, visible focus rings, a skip link, and full
 keyboard support. Every animation is gated behind `prefers-reduced-motion` —
-the hero grid freezes, reveals resolve instantly, the marquee stops, and the
-custom cursor snaps with no trail.
+the lens parks in place, figure packets hide, reveals resolve instantly, and the
+marquee stops.

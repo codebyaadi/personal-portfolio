@@ -1,57 +1,51 @@
-import { ArrowUp } from 'lucide-react';
-import { LocalClock } from '@/components/site/local-clock';
-import { personal, socials } from '@/constants';
+import Link from 'next/link';
+import { personal, routeNav, sectionNav } from '@/constants';
+import { LocalClock } from './local-clock';
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className='border-border border-t'>
-      <div className='mx-auto max-w-6xl px-6 py-14'>
-        <div className='flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between'>
-          <div>
-            <a
-              href='#home'
-              className='font-display text-2xl font-semibold tracking-tight'
-            >
-              aadi<span className='text-accent'>.</span>
-            </a>
-            <p className='text-muted mt-3 max-w-xs text-sm'>
-              Designed &amp; built by {personal.name} with Next.js and Tailwind
-              CSS. No templates.
-            </p>
-          </div>
-
-          <div className='flex flex-col gap-3 sm:items-end'>
-            <ul className='flex items-center gap-5'>
-              {socials.map(({ name, url, icon: Icon }) => (
-                <li key={name}>
-                  <a
-                    href={url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    aria-label={name}
-                    className='text-faint hover:text-foreground transition-colors'
-                  >
-                    <Icon className='size-4' />
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a
-              href='#home'
-              className='text-faint hover:text-foreground inline-flex items-center gap-1.5 font-mono text-xs transition-colors'
-            >
-              Back to top <ArrowUp className='size-3' />
-            </a>
-          </div>
-        </div>
-
-        <div className='border-border text-faint mt-12 flex flex-col gap-2 border-t pt-6 font-mono text-[11px] sm:flex-row sm:items-center sm:justify-between'>
-          <span>
-            © {year} {personal.name}
+    <footer className='border-border-strong overflow-hidden border-t'>
+      <div className='mx-auto max-w-[86rem] px-5 pt-10 sm:px-8'>
+        <div className='label flex flex-wrap items-center justify-between gap-x-8 gap-y-4'>
+          <span className='inline-flex items-center gap-2'>
+            <span className='dot' aria-hidden />
+            <span className='text-foreground'>End of drawing set</span>
           </span>
+          <nav aria-label='Footer' className='flex flex-wrap gap-x-6 gap-y-2'>
+            {[...sectionNav, ...routeNav].map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className='hover:text-foreground transition-colors'
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <LocalClock />
+        </div>
+      </div>
+
+      {/* Oversized wordmark, cropped by the bottom edge of the page. */}
+      <p
+        className='display outline-text hover:text-accent mt-8 -mb-[0.1em] text-center text-[21vw] leading-[0.9] whitespace-nowrap transition-colors duration-500 select-none'
+        aria-hidden
+      >
+        codebyaadi
+      </p>
+
+      <div className='bg-background border-border relative border-t'>
+        <div className='label mx-auto flex max-w-[86rem] flex-wrap items-center justify-between gap-x-8 gap-y-2 px-5 py-4 sm:px-8'>
+          <span>
+            © {new Date().getFullYear()} {personal.name}
+          </span>
+          <span>Drawn by hand in Next.js &amp; Tailwind</span>
+          <Link
+            href='/#home'
+            className='hover:text-foreground transition-colors'
+          >
+            Back to top ↑
+          </Link>
         </div>
       </div>
     </footer>
