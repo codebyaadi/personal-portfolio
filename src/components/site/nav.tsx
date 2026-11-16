@@ -1,212 +1,106 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { useMemo } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { useActiveSection } from '@/hooks/use-active-section';
 import { routeNav, sectionNav } from '@/constants';
+import { useActiveSection } from '@/hooks/use-active-section';
 import { cn } from '@/lib/utils';
+import { openPalette } from './command-palette';
 
-const SECTION_IDS = sectionNav.map((item) => item.id);
-/** "Home" is the wordmark's job — keep it in the menu, not the desktop pill. */
-const DESKTOP_ITEMS = [
-  ...sectionNav.filter((s) => s.id !== 'home'),
-  ...routeNav,
-];
-const MOBILE_ITEMS = [...sectionNav, ...routeNav];
-
+/**
+ * Fixed top bar: the drawing set's running header. It names the sheet you
+ * are on, and its bottom edge fills as you scroll. On small screens the
+ * links collapse into the command palette, which doubles as the menu.
+ */
 export function Nav() {
   const pathname = usePathname();
+  const ids = useMemo(() => sectionNav.map((s) => s.id), []);
+  const active = useActiveSection(ids);
   const onHome = pathname === '/';
-
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const activeSection = useActiveSection(SECTION_IDS);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
-  const [pill, setPill] = useState<{ x: number; w: number } | null>(null);
-
-  const activeId = onHome
-    ? activeSection
-    : (routeNav.find((r) => r.href === pathname)?.id ?? '');
-
-  const hrefFor = (href: string) =>
-    href.startsWith('#') && !onHome ? `/${href}` : href;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Position the sliding indicator under the active desktop item.
-  useLayoutEffect(() => {
-    const list = listRef.current;
-    const el = list?.querySelector<HTMLElement>(`[data-id="${activeId}"]`);
-    if (!list || !el) {
-      setPill(null);
-      return;
-    }
-    setPill({ x: el.offsetLeft, w: el.offsetWidth });
-  }, [activeId, pathname]);
-
-  useEffect(() => {
-    const onResize = () => {
-      const list = listRef.current;
-      const el = list?.querySelector<HTMLElement>(`[data-id="${activeId}"]`);
-      if (list && el) setPill({ x: el.offsetLeft, w: el.offsetWidth });
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [activeId]);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('keydown', onKey);
-    panelRef.current?.querySelector<HTMLElement>('a, button')?.focus();
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [open]);
+  const links = sectionNav.filter((s) => s.id !== 'home' && s.id !== 'faq');
+  const sheet = sectionNav.findIndex((s) => s.id === active);
 
   return (
-    <header
-      className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled
-          ? 'border-border bg-background/70 border-b backdrop-blur-xl'
-          : 'border-b border-transparent'
-      )}
-    >
-      <div className='mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8'>
+    <header className='border-border-strong bg-background/85 fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md'>
+      <div className='mx-auto flex h-14 max-w-[90rem] items-center gap-4 px-5 sm:px-8'>
         <Link
-          href='/'
-          onClick={() => setOpen(false)}
-          className='font-display text-lg font-semibold tracking-tight'
+          href='/#home'
+          className='aside text-2xl leading-none'
+          aria-label='Aditya Rajbhar — home'
         >
           aadi<span className='text-accent'>.</span>
         </Link>
 
+        {onHome && sheet >= 0 ? (
+          <span className='label border-border-strong hidden items-center gap-2 border-l pl-4 md:inline-flex'>
+            <span className='text-accent-text tabular-nums'>
+              Sheet {String(sheet + 1).padStart(2, '0')}
+              <span className='opacity-60'>
+                {' '}
+                / {String(sectionNav.length).padStart(2, '0')}
+              </span>
+            </span>
+            <span className='text-foreground'>{sectionNav[sheet].label}</span>
+          </span>
+        ) : null}
+
         <nav
           aria-label='Primary'
-          className='absolute left-1/2 hidden -translate-x-1/2 lg:block'
+          className='ml-auto hidden items-center gap-6 lg:flex'
         >
-          <ul
-            ref={listRef}
-            className='border-border/70 bg-background/40 relative flex items-center rounded-full border p-1 backdrop-blur-xl'
-          >
-            <span
-              aria-hidden
+          {links.map((item) => (
+            <Link
+              key={item.id}
+              href={item.href}
+              aria-current={onHome && active === item.id ? 'true' : undefined}
               className={cn(
-                'bg-surface-2 absolute top-1 bottom-1 left-0 rounded-full transition-[transform,width,opacity] duration-300 ease-out',
-                pill ? 'opacity-100' : 'opacity-0'
+                'label link-underline pb-0.5 transition-colors',
+                onHome && active === item.id
+                  ? 'link-underline-active text-foreground'
+                  : 'hover:text-foreground'
               )}
-              style={{
-                transform: `translateX(${pill?.x ?? 0}px)`,
-                width: pill?.w ?? 0,
-              }}
-            />
-            {DESKTOP_ITEMS.map((item) => {
-              const current = activeId === item.id;
-              const isSection = item.href.startsWith('#');
-              const cls = cn(
-                'relative z-10 block rounded-full px-3.5 py-1.5 text-[13px] transition-colors',
-                current ? 'text-foreground' : 'text-muted hover:text-foreground'
-              );
-              return (
-                <li key={item.id}>
-                  {isSection ? (
-                    <a
-                      href={hrefFor(item.href)}
-                      data-id={item.id}
-                      aria-current={current ? 'true' : undefined}
-                      className={cls}
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      data-id={item.id}
-                      aria-current={current ? 'page' : undefined}
-                      className={cls}
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+            >
+              {item.label}
+            </Link>
+          ))}
+          {routeNav.map((item) => (
+            <Link
+              key={item.id}
+              href={item.href}
+              className={cn(
+                'label link-underline pb-0.5 transition-colors',
+                pathname.startsWith(item.href)
+                  ? 'link-underline-active text-foreground'
+                  : 'hover:text-foreground'
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
-        <div className='flex items-center gap-1.5'>
-          <ThemeToggle />
+        <div className='ml-auto flex items-center gap-2 lg:ml-2'>
           <button
             type='button'
-            className='border-border text-foreground inline-flex size-9 items-center justify-center rounded-full border lg:hidden'
-            aria-expanded={open}
-            aria-controls='mobile-menu'
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            onClick={() => setOpen((v) => !v)}
+            onClick={openPalette}
+            aria-label='Open command menu'
+            className='label border-border-strong hover:bg-foreground hover:text-background inline-flex h-9 items-center gap-2 border px-3 transition-colors'
           >
-            {open ? <X className='size-4' /> : <Menu className='size-4' />}
+            <span className='lg:hidden'>Menu</span>
+            <span className='hidden lg:inline'>Jump to</span>
+            <kbd className='hidden font-mono text-[0.625rem] tracking-normal opacity-70 sm:inline'>
+              Ctrl K
+            </kbd>
           </button>
+          <ThemeToggle className='border-border-strong hover:bg-foreground hover:text-background rounded-none' />
         </div>
       </div>
-
       <div
-        id='mobile-menu'
-        ref={panelRef}
-        hidden={!open}
-        className='bg-background/95 fixed inset-0 top-16 z-40 backdrop-blur-xl lg:hidden'
-      >
-        <ul className='flex flex-col px-6 py-4'>
-          {MOBILE_ITEMS.map((item, i) => {
-            const current = activeId === item.id;
-            const isSection = item.href.startsWith('#');
-            const cls = cn(
-              'flex items-baseline gap-4 border-b border-border py-4 font-display text-2xl transition-colors',
-              current ? 'text-accent' : 'text-foreground hover:text-accent'
-            );
-            const body = (
-              <>
-                <span className='text-faint font-mono text-xs'>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                {item.label}
-              </>
-            );
-            return (
-              <li key={item.id}>
-                {isSection ? (
-                  <a
-                    href={hrefFor(item.href)}
-                    onClick={() => setOpen(false)}
-                    className={cls}
-                  >
-                    {body}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cls}
-                  >
-                    {body}
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+        className='scroll-progress bg-accent absolute inset-x-0 -bottom-px h-[2px]'
+        aria-hidden
+      />
     </header>
   );
 }

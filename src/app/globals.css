@@ -3,48 +3,71 @@
 @custom-variant light (&:where(.light, .light *));
 
 /* ---------------------------------------------------------------------------
-   Design tokens — dark is default (:root); `.light` opts into the light palette.
+   Design tokens — "the drawing sheet".
+   Two inks and a paper: ultramarine, vermilion, cream. The default theme is
+   the blueprint (cream lines on ultramarine); `.light` is the same sheet
+   printed on paper (ultramarine ink on cream). `.sheet-alt` flips a region to
+   the opposite sheet — sections alternate, and the hero lens looks through
+   to it.
 --------------------------------------------------------------------------- */
-:root {
-  --bg: oklch(0.155 0.006 265);
-  --bg-elevated: oklch(0.19 0.008 265);
-  --surface: oklch(0.212 0.01 265);
-  --surface-2: oklch(0.26 0.012 265);
-  --border: oklch(1 0 0 / 0.09);
-  --border-strong: oklch(1 0 0 / 0.17);
-  --text: oklch(0.97 0.004 265);
-  --text-muted: oklch(0.74 0.014 265);
-  --text-faint: oklch(0.63 0.015 265);
-  --accent: oklch(0.82 0.145 188);
-  --accent-strong: oklch(0.88 0.13 188);
-  --accent-contrast: oklch(0.17 0.03 210);
-  --accent-glow: oklch(0.82 0.145 188 / 0.18);
-  --grid-line: oklch(1 0 0 / 0.03);
-  --noise-opacity: 0.035;
+:root,
+.light .sheet-alt {
+  --bg: #1432c8;
+  --bg-elevated: #102ab0;
+  --surface: #1c3bd6;
+  --surface-2: #2a49e0;
+  --border: rgb(244 239 225 / 0.2);
+  --border-strong: rgb(244 239 225 / 0.55);
+  --text: #f4efe1;
+  --text-muted: #d3d6ee;
+  --text-faint: #a9b3ec;
+  --accent: #ff5a36;
+  --accent-strong: #ff7d5e;
+  --accent-text: #ffb09a;
+  --accent-contrast: #091259;
+  --ok: #7dffb4;
+  --warn: #ffd23f;
+  --grid-line: rgb(244 239 225 / 0.07);
+  --grid-line-major: rgb(244 239 225 / 0.13);
+  --duo-light: #f4efe1;
+  --duo-dark: #1432c8;
+  --noise-opacity: 0.05;
 }
 
-.light {
-  --bg: oklch(0.985 0.003 265);
-  --bg-elevated: oklch(0.97 0.004 265);
-  --surface: oklch(0.955 0.005 265);
-  --surface-2: oklch(0.92 0.006 265);
-  --border: oklch(0 0 0 / 0.1);
-  --border-strong: oklch(0 0 0 / 0.2);
-  --text: oklch(0.19 0.014 265);
-  --text-muted: oklch(0.42 0.016 265);
-  --text-faint: oklch(0.52 0.016 265);
-  --accent: oklch(0.5 0.14 215);
-  --accent-strong: oklch(0.42 0.15 215);
-  --accent-contrast: oklch(0.99 0.01 210);
-  --accent-glow: oklch(0.5 0.14 215 / 0.12);
-  --grid-line: oklch(0 0 0 / 0.04);
-  --noise-opacity: 0.02;
+.light,
+:root:not(.light) .sheet-alt {
+  --bg: #f1ecdd;
+  --bg-elevated: #e9e3d1;
+  --surface: #e2dbc7;
+  --surface-2: #d6ceb7;
+  --border: rgb(18 38 176 / 0.2);
+  --border-strong: rgb(18 38 176 / 0.6);
+  --text: #1226b0;
+  --text-muted: #3a4bb8;
+  --text-faint: #5b69c2;
+  --accent: #f04e23;
+  --accent-strong: #d63f17;
+  --accent-text: #c2330f;
+  --accent-contrast: #091259;
+  --ok: #0b7a3b;
+  --warn: #8a5a00;
+  --grid-line: rgb(18 38 176 / 0.07);
+  --grid-line-major: rgb(18 38 176 / 0.14);
+  --duo-light: #f1ecdd;
+  --duo-dark: #c2330f;
+  --noise-opacity: 0.04;
+}
+
+.sheet-alt {
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 @theme inline {
-  --font-sans: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, 'SF Mono', monospace;
-  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--bg);
   --color-bg-elevated: var(--bg-elevated);
@@ -57,7 +80,12 @@
   --color-faint: var(--text-faint);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
+  --color-accent-text: var(--accent-text);
   --color-accent-contrast: var(--accent-contrast);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---------------------------------------------------------------------------
@@ -71,7 +99,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4.5rem;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -93,7 +121,6 @@
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 3px;
   }
 
   h1,
@@ -101,8 +128,6 @@
   h3,
   h4 {
     text-wrap: balance;
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
   }
 
   p {
@@ -111,57 +136,676 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Type roles
+--------------------------------------------------------------------------- */
+@layer components {
+  /* The loud voice: a big, slightly wonky old-style serif. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-variation-settings:
+      'SOFT' 0,
+      'WONK' 1;
+    font-optical-sizing: auto;
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+  }
+
+  /* Italic aside inside a headline. */
+  .aside {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-variation-settings:
+      'SOFT' 100,
+      'WONK' 1;
+    letter-spacing: -0.03em;
+  }
+
+  /* Drafting annotation — the lettering on the sheet. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--border);
+    padding: 0.32rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1;
+    color: var(--text-muted);
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+  .chip:hover {
+    color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--text);
+    box-shadow: 4px 4px 0 0 var(--border-strong);
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      transform 0.2s var(--ease-out-expo),
+      box-shadow 0.2s var(--ease-out-expo);
+  }
+  .btn:hover {
+    background: var(--text);
+    color: var(--bg);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--border-strong);
+  }
+  .btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 0 var(--border-strong);
+  }
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 600;
+    box-shadow: 4px 4px 0 0 var(--text);
+  }
+  .btn-primary:hover {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+    box-shadow: 6px 6px 0 0 var(--accent);
+  }
+  .btn-primary:active {
+    box-shadow: 1px 1px 0 0 var(--accent);
+  }
+
+  /* Status dot with a soft ping. */
+  .dot {
+    position: relative;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--dot, var(--ok));
+    flex: none;
+  }
+  .dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Outlined display text. Filled with the page colour over a doubled stroke
+     so the variable font's overlapping contours don't show as inner lines. */
+  .outline-text {
+    color: var(--bg);
+    -webkit-text-stroke: 2.5px var(--text);
+    paint-order: stroke fill;
+  }
+
+  /* Two-ink print of a photo: shadows take --duo-dark, highlights --duo-light. */
+  .duotone {
+    position: relative;
+    overflow: hidden;
+    background: var(--duo-light);
+    isolation: isolate;
+  }
+  .duotone img {
+    filter: grayscale(1) contrast(1.2) brightness(1.08);
+    mix-blend-mode: multiply;
+  }
+  .duotone::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--duo-dark);
+    mix-blend-mode: lighten;
+    pointer-events: none;
+  }
+
+  /* Dimension line: |<—— label ——>| */
+  .dim {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .dim::before,
+  .dim::after {
+    content: '';
+    flex: 1;
+    height: 9px;
+    background:
+      linear-gradient(var(--border-strong), var(--border-strong)) center / 100%
+        1px no-repeat,
+      linear-gradient(var(--border-strong), var(--border-strong)) left / 1px
+        100% no-repeat;
+  }
+  .dim::after {
+    background:
+      linear-gradient(var(--border-strong), var(--border-strong)) center / 100%
+        1px no-repeat,
+      linear-gradient(var(--border-strong), var(--border-strong)) right / 1px
+        100% no-repeat;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Utilities
 --------------------------------------------------------------------------- */
-@utility text-gradient {
-  background: linear-gradient(
-    175deg,
-    var(--text) 30%,
-    color-mix(in oklch, var(--text) 42%, transparent)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@utility grid-bg {
+/* Drafting grid: fine squares with a heavier line every fifth. */
+@utility sheet-grid {
   background-image:
+    linear-gradient(to right, var(--grid-line-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-major) 1px, transparent 1px),
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
 }
 
-/* Fixed film-grain overlay. */
+/* Fixed paper-grain overlay. */
 @utility noise-layer {
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
   opacity: var(--noise-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Animated link underline. */
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0% 1px;
   transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover {
+    background-size: 100% 1px;
+  }
 }
 @utility link-underline-active {
   background-size: 100% 1px;
 }
 
-/* Minimal scroll reveal — a short fade + small rise, not a choreographed
-   sequence. See components/reveal-observer.tsx. */
+/* ---------------------------------------------------------------------------
+   Hero — the cover sheet and its X-ray lens
+--------------------------------------------------------------------------- */
+.hero {
+  --mx: 62%;
+  --my: 40%;
+  --r: 0px;
+}
+.hero-sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-top: 3.5rem; /* fixed nav */
+}
+.lens-under {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(
+    circle var(--r) at var(--mx) var(--my),
+    #000 calc(100% - 1px),
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--r) at var(--mx) var(--my),
+    #000 calc(100% - 1px),
+    transparent 100%
+  );
+}
+.lens-under .hero-sheet {
+  height: 100%;
+  min-height: 0;
+}
+.under-only {
+  display: none;
+}
+.lens-under .under-only {
+  display: block;
+}
+.lens-under .surface-only {
+  visibility: hidden;
+}
+/* Under the lens the name becomes its own construction drawing. */
+.lens-under .hero-name {
+  color: var(--bg);
+  -webkit-text-stroke: 2.5px var(--text);
+  paint-order: stroke fill;
+}
+.lens-under .hero-name .text-accent {
+  -webkit-text-stroke-color: var(--accent);
+}
+.guide {
+  position: absolute;
+  left: -100vw;
+  right: -100vw;
+  height: 0;
+  border-top: 1px dashed var(--accent);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.guide > span {
+  position: absolute;
+  left: calc(100vw + 0.25rem);
+  bottom: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+}
+
+.lens-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  transform: translate(calc(var(--mx) - var(--r)), calc(var(--my) - var(--r)));
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--accent) 14%, transparent),
+    0 18px 60px -10px rgb(0 0 20 / 0.45);
+  pointer-events: none;
+  z-index: 5;
+}
+/* Crosshair ticks on the rim. */
+.lens-ring::before,
+.lens-ring::after {
+  content: '';
+  position: absolute;
+  background: var(--accent);
+}
+.lens-ring::before {
+  left: 50%;
+  top: -10px;
+  bottom: -10px;
+  width: 1.5px;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(
+    #000 0 20px,
+    transparent 20px calc(100% - 20px),
+    #000 calc(100% - 20px)
+  );
+  mask-image: linear-gradient(
+    #000 0 20px,
+    transparent 20px calc(100% - 20px),
+    #000 calc(100% - 20px)
+  );
+}
+.lens-ring::after {
+  top: 50%;
+  left: -10px;
+  right: -10px;
+  height: 1.5px;
+  transform: translateY(-50%);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0 20px,
+    transparent 20px calc(100% - 20px),
+    #000 calc(100% - 20px)
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0 20px,
+    transparent 20px calc(100% - 20px),
+    #000 calc(100% - 20px)
+  );
+}
+.lens-readout {
+  position: absolute;
+  left: 86%;
+  top: 86%;
+  padding: 0.25rem 0.45rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* Zone marks along the sheet border (1–8 across, A–E down). */
+.zones {
+  position: absolute;
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+.zones > span {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+.zones-x {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.zones-x > span + span {
+  border-left: 1px solid var(--border);
+}
+.zones-y {
+  top: 1.25rem;
+  bottom: 0;
+  left: 0;
+  width: 1.25rem;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+}
+.zones-y > span + span {
+  border-top: 1px solid var(--border);
+}
+
+/* ---------------------------------------------------------------------------
+   Figures — architecture drawings for each project
+--------------------------------------------------------------------------- */
+.fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.fig-node {
+  fill: var(--bg);
+  stroke: var(--text);
+  stroke-width: 1.25;
+}
+.fig-node-accent {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.fig-node-ghost {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+.fig-t {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  fill: var(--text);
+}
+.fig-s {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  fill: var(--text-faint);
+}
+.fig-on-accent {
+  fill: var(--accent-contrast);
+}
+.fig-note {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--text-muted);
+}
+.fig-big {
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: -0.03em;
+  fill: var(--text);
+}
+.fig-edge {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.25;
+}
+.fig-edge-dashed {
+  stroke-dasharray: 5 4;
+  stroke: var(--border-strong);
+}
+.fig-arrow {
+  fill: var(--text);
+}
+.fig-pkt {
+  fill: var(--accent);
+  stroke: var(--bg);
+  stroke-width: 1.5;
+}
+.fig-balloon {
+  fill: var(--accent);
+}
+.fig-balloon-t {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--accent-contrast);
+}
+/* Edges draw themselves in when the figure scrolls into view. */
+.js [data-reveal] .fig-edge:not(.fig-edge-dashed) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s var(--ease-out-expo) 0.25s;
+}
+.js [data-reveal].is-visible .fig-edge:not(.fig-edge-dashed) {
+  stroke-dashoffset: 0;
+}
+.js [data-reveal] .fig-pkt,
+.js [data-reveal] .fig-arrow {
+  opacity: 0;
+  transition: opacity 0.4s 1.2s;
+}
+.js [data-reveal].is-visible .fig-pkt,
+.js [data-reveal].is-visible .fig-arrow {
+  opacity: 1;
+}
+
+/* Number balloon used in copy (matches the balloons in the figure). */
+.balloon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------------
+   Stack — exploded isometric section
+--------------------------------------------------------------------------- */
+.iso {
+  --plate: 13rem;
+  --gap: 3.4rem;
+  position: relative;
+  width: calc(var(--plate) * 1.4142);
+  height: calc(var(--plate) * 0.7071 + var(--gap) * (var(--n) - 1) + 2rem);
+  margin-inline: auto;
+}
+@media (min-width: 640px) {
+  .iso {
+    --plate: 17rem;
+    --gap: 4.25rem;
+  }
+}
+.iso-plate {
+  position: absolute;
+  left: 50%;
+  top: 1rem;
+  width: var(--plate);
+  height: var(--plate);
+  margin-left: calc(var(--plate) / -2);
+  margin-top: calc(var(--plate) * -0.1464);
+  padding: 0;
+  transform: translateY(calc(var(--i) * var(--gap) * var(--spread, 1)))
+    rotateX(60deg) rotateZ(45deg);
+  border: 1.5px solid var(--text);
+  background-color: color-mix(in srgb, var(--bg) 82%, transparent);
+  cursor: pointer;
+  transition:
+    transform 1s var(--ease-out-expo),
+    background-color 0.3s,
+    border-color 0.3s;
+  transition-delay: calc(var(--i) * 40ms), 0s, 0s;
+}
+.js .iso:not(.is-visible) {
+  --spread: 0.22;
+}
+.iso-tag {
+  position: absolute;
+  left: calc(50% + var(--plate) * 0.7071 + 0.35rem);
+  top: calc(1rem + var(--plate) * 0.3536 - 0.5rem);
+  transform: translateY(calc(var(--i) * var(--gap) * var(--spread, 1)));
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+  transition:
+    transform 1s var(--ease-out-expo),
+    color 0.3s;
+  transition-delay: calc(var(--i) * 40ms), 0s;
+}
+.iso-plate[data-active='true'] {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(calc(var(--i) * var(--gap) - 0.9rem)) rotateX(60deg)
+    rotateZ(45deg);
+  transition-delay: 0s;
+}
+/* Material hatches, one per layer. */
+.iso-plate::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  opacity: 0.5;
+  background-image: var(--hatch);
+  background-size: var(--hatch-size, 10px 10px);
+}
+.iso-plate[data-active='true']::before {
+  opacity: 0.35;
+  filter: brightness(0);
+}
+.hatch-0 {
+  --hatch: repeating-linear-gradient(
+    90deg,
+    var(--text) 0 1px,
+    transparent 1px 10px
+  );
+  --hatch-size: auto;
+}
+.hatch-1 {
+  --hatch: repeating-linear-gradient(
+    45deg,
+    var(--text) 0 1px,
+    transparent 1px 8px
+  );
+  --hatch-size: auto;
+}
+.hatch-2 {
+  --hatch: radial-gradient(var(--text) 1.2px, transparent 1.6px);
+  --hatch-size: 10px 10px;
+}
+.hatch-3 {
+  --hatch:
+    repeating-linear-gradient(0deg, var(--text) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, var(--text) 0 1px, transparent 1px 12px);
+  --hatch-size: auto;
+}
+.hatch-4 {
+  --hatch:
+    repeating-linear-gradient(45deg, var(--text) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(-45deg, var(--text) 0 1px, transparent 1px 9px);
+  --hatch-size: auto;
+}
+/* The through-bolt: languages run through every layer. */
+.iso-bolt {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px dashed var(--border-strong);
+  z-index: 20;
+  pointer-events: none;
+  transition: border-color 0.3s;
+}
+.iso-bolt[data-active='true'] {
+  border-left: 3px solid var(--accent);
+}
+.iso-bolt::before,
+.iso-bolt::after {
+  content: '';
+  position: absolute;
+  left: -7.5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1.5px solid var(--text);
+}
+.iso-bolt::before {
+  top: -4px;
+}
+.iso-bolt::after {
+  bottom: -4px;
+}
+.iso-bolt[data-active='true']::before,
+.iso-bolt[data-active='true']::after {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+--------------------------------------------------------------------------- */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px);
   transition:
-    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .js [data-reveal].is-visible {
@@ -169,11 +813,32 @@
   transform: none;
 }
 
-/* One gentle entrance for the hero on load — no per-line choreography. */
+/* Section rules draw across like a pen stroke. */
+.js [data-reveal].rule {
+  opacity: 1;
+  transform: none;
+}
+.rule {
+  position: relative;
+}
+.rule::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: var(--border-strong);
+  transform-origin: left;
+  transition: transform 1.2s var(--ease-out-expo);
+}
+.js [data-reveal].rule:not(.is-visible)::before {
+  transform: scaleX(0);
+}
+
 @keyframes fade-rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -181,8 +846,121 @@
   }
 }
 .animate-fade-rise {
-  animation: fade-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--delay, 0ms);
+}
+
+/* Hero name: each line slides up out of a mask. */
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.line-mask > span {
+  display: block;
+  animation: line-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+.lens-under .line-mask {
+  overflow: visible;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.fig-wave {
+  fill: var(--text);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wave var(--dur, 1.2s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.caret {
+  animation: blink 1.1s steps(1) infinite;
+}
+
+/* Scroll progress along the bottom edge of the nav. */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  @keyframes grow-x {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  .scroll-progress {
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* FAQ disclosure marker. */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-plus {
+  transform: rotate(45deg);
 }
 
 /* ---------------------------------------------------------------------------
@@ -200,6 +978,14 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     transition-delay: 0ms !important;
+  }
+  .marquee-track,
+  .spin-slow,
+  .fig-wave {
+    animation: none !important;
+  }
+  .fig-pkt {
+    display: none;
   }
   .js [data-reveal] {
     opacity: 1 !important;

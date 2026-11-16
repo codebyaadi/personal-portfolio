@@ -1,26 +1,8 @@
-import { ImageResponse } from 'next/og';
+import { renderBrandIcon } from '@/lib/brand-icon';
 
 export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
 
 export default function AppleIcon() {
-  return new ImageResponse(
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#131316',
-        color: '#f4f5f6',
-        fontSize: 118,
-        fontWeight: 700,
-        fontFamily: 'sans-serif',
-      }}
-    >
-      a<span style={{ color: '#5fd4d6' }}>.</span>
-    </div>,
-    size
-  );
+  return renderBrandIcon(size.width);
 }

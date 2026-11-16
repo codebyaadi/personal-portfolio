@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist_Mono, Sora } from 'next/font/google';
+import { Fraunces, Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
 
+import { CommandPalette } from '@/components/site/command-palette';
 import { Nav } from '@/components/site/nav';
 import { HashScroll } from '@/components/hash-scroll';
 import { RevealObserver } from '@/components/reveal-observer';
@@ -9,9 +10,16 @@ import { ThemeScript } from '@/components/theme-script';
 import { personal, socials } from '@/constants';
 import './globals.css';
 
-const sora = Sora({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-sora',
+  style: ['normal', 'italic'],
+  axes: ['opsz', 'SOFT', 'WONK'],
+  variable: '--font-fraunces',
+  display: 'swap',
+});
+const geist = Geist({
+  subsets: ['latin'],
+  variable: '--font-geist',
   display: 'swap',
 });
 const geistMono = Geist_Mono({
@@ -37,6 +45,8 @@ export const metadata: Metadata = {
     'Next.js developer',
     'React developer',
     'TypeScript',
+    'Kotlin',
+    'Android developer',
     'Go developer',
     'FastAPI',
     'Google Cloud',
@@ -89,8 +99,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#131316' },
-    { media: '(prefers-color-scheme: light)', color: '#fcfcfd' },
+    { media: '(prefers-color-scheme: dark)', color: '#1432c8' },
+    { media: '(prefers-color-scheme: light)', color: '#f1ecdd' },
   ],
   colorScheme: 'dark light',
 };
@@ -103,7 +113,7 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`${sora.variable} ${geistMono.variable}`}
+      className={`${fraunces.variable} ${geist.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -115,13 +125,14 @@ export default function RootLayout({
       <body className='min-h-dvh antialiased'>
         <a
           href='#main-content'
-          className='focus:bg-accent focus:text-accent-contrast sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm'
+          className='focus:bg-accent focus:text-accent-contrast sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:text-sm'
         >
           Skip to content
         </a>
         <div className='noise-layer' aria-hidden />
         <Nav />
         <main id='main-content'>{children}</main>
+        <CommandPalette />
         <HashScroll />
         <RevealObserver />
         {umamiWebsiteId ? (

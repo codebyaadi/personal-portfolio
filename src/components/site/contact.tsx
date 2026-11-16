@@ -1,65 +1,86 @@
 import { ArrowUpRight } from 'lucide-react';
-import { AnimatedWords } from '@/components/ui/reveal';
 import { contactNote, socials } from '@/constants';
 
 export function Contact() {
+  const x = socials.find((s) => s.name === 'X') ?? socials[0];
+
   return (
     <section
       id='contact'
       aria-labelledby='contact-heading'
-      className='relative scroll-mt-20 overflow-hidden pt-28 pb-24 sm:pt-40 sm:pb-28'
+      className='relative overflow-hidden'
     >
-      <div className='grid-bg pointer-events-none absolute inset-0' />
-      <div className='pointer-events-none absolute -bottom-1/2 left-1/2 h-[40rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_70%)] blur-3xl' />
-
-      <div className='relative mx-auto max-w-6xl px-6 text-center' data-reveal>
-        <p className='text-faint font-mono text-xs tracking-[0.18em] uppercase'>
-          06 — Contact
-        </p>
-        <h2
-          id='contact-heading'
-          className='mx-auto mt-6 text-[clamp(2.5rem,9vw,6.5rem)] leading-[0.92] font-extrabold tracking-tight uppercase'
+      <div
+        className='sheet-grid pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_80%)]'
+        aria-hidden
+      />
+      <div className='relative mx-auto max-w-[86rem] px-5 py-20 sm:px-8 sm:py-28'>
+        <div
+          className='label rule flex items-center justify-between gap-4 pt-4'
+          data-reveal
         >
-          <AnimatedWords as='span' text='Have an idea' className='block' />
-          <AnimatedWords
-            as='span'
-            text='worth building?'
-            className='block'
-            wordClassName='text-faint'
-            startDelay={80}
-          />
-        </h2>
-        <p className='text-muted mx-auto mt-7 max-w-xl leading-relaxed'>
-          {contactNote}
-        </p>
-
-        <div className='mt-12 flex justify-center'>
-          <a
-            href={socials.find((s) => s.name === 'X')?.url ?? '#'}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='group bg-accent text-accent-contrast hover:bg-accent-strong inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium transition-[background-color,transform] duration-200 active:scale-[0.97]'
-          >
-            Start a conversation
-            <ArrowUpRight className='size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5' />
-          </a>
+          <span>
+            <span className='text-accent-text'>Sheet 07</span>
+            <span className='mx-2 opacity-50'>/</span>
+            Contact
+          </span>
+          <span className='inline-flex items-center gap-2'>
+            <span className='dot' aria-hidden />
+            Open to side projects
+          </span>
         </div>
 
-        <ul className='mx-auto mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4'>
-          {socials.map(({ name, handle, url, icon: Icon }) => (
-            <li key={name}>
-              <a
-                href={url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='group text-muted hover:text-foreground flex items-center gap-2.5 text-sm transition-colors'
-              >
-                <Icon className='group-hover:text-accent size-4 transition-colors' />
-                <span className='font-mono text-xs'>{handle}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <h2
+          id='contact-heading'
+          className='display mt-8 text-[clamp(3.5rem,13vw,13rem)]'
+          data-reveal
+        >
+          Got a system
+          <br />
+          worth{' '}
+          <span className='aside text-accent text-[1.06em]'>drawing up?</span>
+        </h2>
+
+        <div className='mt-12 grid gap-12 sm:mt-16 lg:grid-cols-12'>
+          <div className='lg:col-span-5' data-reveal>
+            <p className='text-muted text-lg leading-relaxed'>{contactNote}</p>
+            <a
+              href={x.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-primary mt-8'
+            >
+              Message me on X
+              <ArrowUpRight className='size-3.5' aria-hidden />
+            </a>
+          </div>
+
+          <ul
+            className='border-border-strong border-t lg:col-span-6 lg:col-start-7'
+            data-reveal
+          >
+            {socials.map((s) => (
+              <li key={s.name}>
+                <a
+                  href={s.url}
+                  target='_blank'
+                  rel='noopener noreferrer me'
+                  className='group border-border hover:bg-foreground hover:text-background -mx-3 flex items-center gap-4 border-b px-3 py-5 transition-colors duration-200'
+                >
+                  <s.icon className='size-5 shrink-0' />
+                  <span className='display text-4xl sm:text-5xl'>{s.name}</span>
+                  <span className='ml-auto font-mono text-xs opacity-70 sm:text-sm'>
+                    {s.handle}
+                  </span>
+                  <ArrowUpRight
+                    className='size-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1'
+                    aria-hidden
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

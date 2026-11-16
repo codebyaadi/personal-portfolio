@@ -1,104 +1,145 @@
 import { ArrowUpRight } from 'lucide-react';
-import { Section } from '@/components/site/section';
-import { BrandIcon, techIcons } from '@/components/icons';
 import { work } from '@/constants';
 import { cssVars } from '@/lib/utils';
+import { TechChip } from './projects';
+import { Section } from './section';
 
-const github = [
-  { label: 'Public repositories', value: '24' },
-  { label: 'On GitHub since', value: '2022' },
-  { label: 'Primary languages', value: 'TypeScript · Go · Python · Java' },
-  {
-    label: 'Recent focus',
-    value: 'Distributed systems · AI tooling · secure-by-default',
-  },
-];
+/** "Sep 2026" → UTC month index (year * 12 + month). */
+function monthIndex(label: string): number {
+  const d = new Date(`1 ${label} UTC`);
+  return d.getUTCFullYear() * 12 + d.getUTCMonth();
+}
 
+/** Months each role has run, oldest first — drives the dimension line. */
+function spans(now: Date) {
+  const nowIdx = now.getUTCFullYear() * 12 + now.getUTCMonth();
+  return work
+    .slice()
+    .reverse()
+    .map((w) => {
+      const end = w.end ? monthIndex(w.end) : nowIdx + 1;
+      return {
+        company: w.company,
+        current: w.end === null,
+        months: Math.max(1, end - monthIndex(w.start)),
+      };
+    });
+}
+
+/**
+ * Work history as the revision block of the drawing: REV A is the first
+ * role, the latest letter is the current one. A dimension line above it
+ * measures the whole run in months.
+ */
 export function Experience() {
+  const segments = spans(new Date());
+  const total = segments.reduce((n, s) => n + s.months, 0);
+
   return (
     <Section
       id='experience'
       index='04'
-      title='Experience'
-      kicker='What I ship at work, and what I ship on my own'
+      label='Revisions'
+      meta={`${total} months in production`}
+      invert
+      heading={
+        <>
+          Revision{' '}
+          <span className='aside text-accent text-[1.06em]'>history.</span>
+        </>
+      }
     >
-      <div className='grid gap-16 lg:grid-cols-[1.4fr_1fr] lg:gap-20'>
-        <ol className='border-border relative space-y-12 border-l pl-8' data-reveal>
-          {work.map((job) => (
-            <li key={job.company} className='relative'>
-              <span
-                className='border-accent bg-background absolute top-2 -left-[37px] size-3 rounded-full border-2'
-                aria-hidden
-              />
-              <div className='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
-                <h3 className='font-display text-xl font-medium'>
-                  {job.title}
-                  <span className='text-muted'> — {job.company}</span>
-                </h3>
-                <span className='text-faint font-mono text-xs tabular-nums'>
-                  {job.start} — {job.end ?? 'Present'}
-                </span>
-              </div>
-              <p className='text-faint mt-1 font-mono text-xs'>
-                {job.location}
-              </p>
-              <p className='text-muted mt-3 leading-relaxed'>{job.summary}</p>
-              <ul className='mt-4 flex flex-wrap gap-1.5'>
-                {job.stack.map((tech) => (
-                  <li
-                    key={tech}
-                    className='border-border text-faint inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[11px]'
-                  >
-                    {techIcons[tech] ? (
-                      <BrandIcon icon={techIcons[tech]} className='size-2.5' />
-                    ) : null}
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ol>
-
-        <aside
-          data-reveal
-          style={cssVars({ '--reveal-delay': '80ms' })}
-          className='border-border bg-surface/40 hover:border-accent/40 h-fit rounded-2xl border p-7 transition-colors'
-        >
-          <h3 className='text-faint font-mono text-[11px] tracking-widest uppercase'>
-            Open source
-          </h3>
-          <a
-            href='https://github.com/codebyaadi'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='font-display hover:text-accent group mt-3 inline-flex items-center gap-1.5 text-lg font-medium transition-colors'
+      {/* Dimension line: one segment per role, width ∝ months */}
+      <div className='flex gap-1' data-reveal aria-hidden>
+        {segments.map((s) => (
+          <div
+            key={s.company}
+            style={{ flexGrow: s.months }}
+            className='basis-28'
           >
-            <span className='link-underline group-hover:link-underline-active'>
-              github.com/codebyaadi
-            </span>
-            <ArrowUpRight className='size-4' aria-hidden />
-          </a>
-          <dl className='divide-border border-border mt-5 divide-y border-y'>
-            {github.map(({ label, value }) => (
-              <div
-                key={label}
-                className='flex items-baseline justify-between gap-4 py-2.5'
-              >
-                <dt className='text-muted text-sm'>{label}</dt>
-                <dd className='text-foreground text-right font-mono text-xs'>
-                  {value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <p className='text-muted mt-4 text-sm'>
-            Most of what I learn on gets built in the open — a monitoring
-            platform, a SaaS backbone, a high-performance Go backend, and small
-            published packages.
-          </p>
-        </aside>
+            <div
+              className={
+                s.current
+                  ? 'bg-accent h-3'
+                  : 'border-border-strong h-3 border bg-[repeating-linear-gradient(45deg,var(--text)_0_1px,transparent_1px_7px)]'
+              }
+            />
+            <span className='dim mt-2'>{s.months} mo</span>
+            <p className='label mt-1 truncate text-center'>{s.company}</p>
+          </div>
+        ))}
       </div>
+
+      <div className='label border-border-strong mt-14 hidden grid-cols-12 gap-x-10 border-b pb-3 lg:grid'>
+        <span className='col-span-2'>Rev</span>
+        <span className='col-span-2'>Date</span>
+        <span className='col-span-8'>Description</span>
+      </div>
+      <ol className='mt-10 lg:mt-0'>
+        {work.map((w, i) => {
+          const current = w.end === null;
+          const rev = String.fromCharCode(65 + work.length - 1 - i);
+          return (
+            <li
+              key={w.company}
+              className='border-border-strong grid gap-x-10 gap-y-4 border-b py-10 first:border-t sm:py-12 lg:grid-cols-12 lg:first:border-t-0'
+              data-reveal
+            >
+              <p
+                className={`display text-[clamp(5rem,11vw,9.5rem)] leading-[0.8] lg:col-span-2 ${current ? 'text-accent' : 'outline-text'}`}
+                aria-label={`Revision ${rev}`}
+              >
+                {rev}
+              </p>
+
+              <div className='lg:col-span-2'>
+                <p className='font-mono text-sm leading-relaxed'>
+                  {w.start}
+                  <br className='hidden lg:block' />
+                  <span className='text-faint'> → </span>
+                  {w.end ?? 'Present'}
+                </p>
+                <p className='label mt-3 inline-flex items-center gap-2'>
+                  <span
+                    className='dot'
+                    style={cssVars({
+                      '--dot': current ? 'var(--ok)' : 'var(--text-faint)',
+                    })}
+                    aria-hidden
+                  />
+                  {current ? 'Current' : 'Superseded'}
+                </p>
+              </div>
+
+              <div className='lg:col-span-8'>
+                <h3 className='display text-[clamp(2.25rem,4.4vw,3.75rem)]'>
+                  {w.title}
+                </h3>
+                <p className='mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-lg'>
+                  <a
+                    href={w.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='link-underline text-accent-text inline-flex items-center gap-1 font-medium'
+                  >
+                    {w.company}
+                    <ArrowUpRight className='size-4' aria-hidden />
+                  </a>
+                  <span className='label'>{w.location}</span>
+                </p>
+                <p className='text-muted mt-5 max-w-3xl leading-relaxed'>
+                  {w.summary}
+                </p>
+                <ul className='mt-6 flex flex-wrap gap-1.5' aria-label='Stack'>
+                  {w.stack.map((t) => (
+                    <TechChip key={t} name={t} />
+                  ))}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
     </Section>
   );
 }

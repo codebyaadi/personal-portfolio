@@ -1,43 +1,88 @@
-import { Section } from '@/components/site/section';
 import { personal } from '@/constants';
 import { cssVars } from '@/lib/utils';
+import { Section } from './section';
 
 export function About() {
+  const [lead, ...rest] = personal.about;
+
   return (
     <Section
       id='about'
-      index='01'
-      title='About'
-      kicker='Engineer, whole-stack — India'
+      index='02'
+      label='Profile'
+      meta='General arrangement'
+      invert
+      heading={
+        <>
+          Pixels down
+          <br />
+          to <span className='aside text-accent text-[1.06em]'>queues.</span>
+        </>
+      }
     >
-      <div className='grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20'>
-        <div data-reveal>
-          <p className='font-display text-2xl leading-snug font-semibold text-balance sm:text-4xl'>
-            Good software is mostly good decisions — about data, about
-            boundaries, and about what to leave out.
+      <div className='grid gap-12 lg:grid-cols-12'>
+        <div className='lg:col-span-7'>
+          <p
+            className='display text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.12] tracking-[-0.02em]'
+            data-reveal
+          >
+            {lead}
           </p>
-
-          <div className='text-muted mt-10 space-y-5 text-base leading-relaxed sm:text-lg'>
-            {personal.about.map((paragraph) => (
-              <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+          <div className='text-muted mt-9 max-w-2xl space-y-5 text-[1.0625rem] leading-relaxed'>
+            {rest.map((p, i) => (
+              <p
+                key={p}
+                data-reveal
+                style={cssVars({ '--reveal-delay': `${i * 60}ms` })}
+              >
+                {p}
+              </p>
             ))}
           </div>
         </div>
 
-        <dl
+        {/* "At a glance" as a drawing legend */}
+        <aside
+          className='lg:col-span-4 lg:col-start-9'
+          aria-label='At a glance'
           data-reveal
-          style={cssVars({ '--reveal-delay': '80ms' })}
-          className='border-border bg-border grid h-fit grid-cols-1 gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-1'
         >
-          {personal.glance.map(({ label, value }) => (
-            <div key={label} className='bg-background p-5'>
-              <dt className='text-faint font-mono text-[11px] tracking-widest uppercase'>
-                {label}
-              </dt>
-              <dd className='text-foreground mt-1.5 text-sm'>{value}</dd>
+          <div className='border-border-strong border shadow-[10px_10px_0_0_var(--border)] lg:sticky lg:top-24'>
+            <div className='label border-border-strong flex items-center justify-between border-b px-4 py-3'>
+              <span>Legend</span>
+              <span>Rev B</span>
             </div>
-          ))}
-        </dl>
+            <dl>
+              {personal.glance.map((g, i) => (
+                <div
+                  key={g.label}
+                  className='border-border grid grid-cols-[1.75rem_1fr] gap-x-2 border-b px-4 py-4'
+                >
+                  <span
+                    className='text-accent-text font-mono text-xs leading-5'
+                    aria-hidden
+                  >
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  <div>
+                    <dt className='label'>{g.label}</dt>
+                    <dd className='mt-1.5 leading-snug font-medium'>
+                      {g.value}
+                    </dd>
+                  </div>
+                </div>
+              ))}
+              <div className='bg-accent text-accent-contrast px-4 py-4'>
+                <dt className='font-mono text-[0.6875rem] tracking-[0.14em] uppercase opacity-80'>
+                  Availability
+                </dt>
+                <dd className='mt-1.5 leading-snug font-semibold'>
+                  {personal.availabilityLong}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
       </div>
     </Section>
   );

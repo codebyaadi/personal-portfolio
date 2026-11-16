@@ -49,4 +49,4 @@ export const youtube = {
 
 /** Preferred way to reach out. */
 export const contactNote =
-  'I’m always up for a good problem — a product to build, a system to untangle, or a role worth moving for. A direct message on X with a real question is the fastest way in. Cold sales pitches get ignored.';
+  'I work full-time at BrainFog, so I’m not looking for a new role — but I’m always up for a good problem: a side project to build, a system to untangle, or an idea worth pairing on. A direct message on X with a real question is the fastest way in. Cold sales pitches get ignored.';

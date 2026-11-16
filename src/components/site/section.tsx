@@ -1,71 +1,57 @@
 import type { ReactNode } from 'react';
-import { AnimatedWords } from '@/components/ui/reveal';
 import { cn } from '@/lib/utils';
 
-interface SectionProps {
-  id: string;
-  index: string;
-  /** A single line, or two stacked lines — the second renders muted/outlined. */
-  title: string | [string, string];
-  kicker?: string;
-  children: ReactNode;
-  className?: string;
-}
-
 /**
- * Section shell: a small mono index, then a heavy all-caps display heading —
- * one solid line, optionally a second muted/outlined line beneath it — plus
- * an optional kicker and a hairline rule. The heading labels the region for
- * assistive tech.
+ * One sheet of the drawing set. A ruled header strip — `SHEET 02 / SYSTEMS`
+ * on the left, a drafting note on the right — then a loud serif heading.
+ * `invert` prints the sheet in the opposite ink, so sections alternate
+ * between blueprint and paper.
  */
 export function Section({
   id,
   index,
-  title,
-  kicker,
+  label,
+  meta,
+  heading,
   children,
+  invert = false,
   className,
-}: SectionProps) {
-  const [main, accent] = Array.isArray(title) ? title : [title, undefined];
-
+}: {
+  id: string;
+  index: string;
+  label: string;
+  meta?: ReactNode;
+  heading: ReactNode;
+  children: ReactNode;
+  invert?: boolean;
+  className?: string;
+}) {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={cn('scroll-mt-20 py-20 sm:py-28', className)}
+      className={cn('relative', invert && 'sheet-alt', className)}
     >
-      <div className='mx-auto max-w-6xl px-6'>
+      <div className='mx-auto max-w-[86rem] px-5 py-20 sm:px-8 sm:py-28'>
         <div
-          className='border-border mb-12 flex flex-col gap-6 border-b pb-7 sm:mb-16 sm:flex-row sm:items-end sm:justify-between'
+          className='label rule flex items-center justify-between gap-4 pt-4'
           data-reveal
         >
-          <div>
-            <span className='text-faint font-mono text-xs tracking-widest uppercase'>
-              {index}
-            </span>
-            <h2
-              id={`${id}-heading`}
-              className='mt-2 text-5xl leading-[0.92] font-extrabold tracking-tight uppercase sm:text-7xl'
-            >
-              <AnimatedWords as='span' text={main} className='block' />
-              {accent ? (
-                <AnimatedWords
-                  as='span'
-                  text={accent}
-                  className='block'
-                  wordClassName='text-faint'
-                  startDelay={80}
-                />
-              ) : null}
-            </h2>
-          </div>
-          {kicker ? (
-            <p className='text-faint max-w-xs font-mono text-xs leading-relaxed sm:text-right'>
-              {kicker}
-            </p>
-          ) : null}
+          <span>
+            <span className='text-accent-text'>Sheet {index}</span>
+            <span className='mx-2 opacity-50'>/</span>
+            {label}
+          </span>
+          {meta ? <span className='text-right'>{meta}</span> : null}
         </div>
-        {children}
+        <h2
+          id={`${id}-heading`}
+          className='display mt-8 text-[clamp(3rem,9vw,8.5rem)]'
+          data-reveal
+        >
+          {heading}
+        </h2>
+        <div className='mt-12 sm:mt-16'>{children}</div>
       </div>
     </section>
   );

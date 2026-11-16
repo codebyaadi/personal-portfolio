@@ -4,15 +4,15 @@ export interface NavItem {
   href: string;
 }
 
-/** In-page sections tracked for active-link highlighting. */
+/** In-page sections tracked for active-link highlighting, in page order. */
 export const sectionNav: NavItem[] = [
-  { id: 'home', label: 'Home', href: '#home' },
-  { id: 'about', label: 'About', href: '#about' },
-  { id: 'skills', label: 'Skills', href: '#skills' },
-  { id: 'projects', label: 'Projects', href: '#projects' },
-  { id: 'experience', label: 'Experience', href: '#experience' },
-  { id: 'faq', label: 'FAQ', href: '#faq' },
-  { id: 'contact', label: 'Contact', href: '#contact' },
+  { id: 'home', label: 'Cover', href: '/#home' },
+  { id: 'about', label: 'Profile', href: '/#about' },
+  { id: 'projects', label: 'Systems', href: '/#projects' },
+  { id: 'experience', label: 'Revisions', href: '/#experience' },
+  { id: 'skills', label: 'Stack', href: '/#skills' },
+  { id: 'faq', label: 'Notes', href: '/#faq' },
+  { id: 'contact', label: 'Contact', href: '/#contact' },
 ];
 
 /** Extra links shown in the nav that route elsewhere. */

@@ -10,15 +10,18 @@ import { Footer } from '@/components/site/footer';
 import { JsonLd } from '@/components/json-ld';
 import { homeJsonLd } from '@/lib/structured-data';
 
+// Re-render daily so the career dimension line gains its month.
+export const revalidate = 86400;
+
 export default function HomePage() {
   return (
     <>
       <JsonLd data={homeJsonLd()} />
       <Hero />
       <About />
-      <Skills />
       <Projects />
       <Experience />
+      <Skills />
       <Shorts />
       <Faq />
       <Contact />

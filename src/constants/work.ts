@@ -18,16 +18,16 @@ export const work: WorkItem[] = [
     start: 'Sep 2026',
     end: null,
     summary:
-      'Building full-stack applications and AI-powered automation systems across web and mobile platforms.',
+      'Building across the whole product surface: native Android apps in Kotlin, full-stack web apps on Next.js and Prisma, Python backends, and AI agents and automation with LangChain, LangGraph and MCP. It’s also where I picked up Kotlin.',
     stack: [
+      'Kotlin',
+      'Android',
       'Next.js',
       'Prisma',
       'Python',
-      'Android',
-      'MCP',
-      'AI',
       'LangChain',
       'LangGraph',
+      'MCP',
     ],
   },
   {
@@ -38,7 +38,7 @@ export const work: WorkItem[] = [
     start: 'May 2024',
     end: 'Sep 2026',
     summary:
-      'Building the web platform behind the company’s water- and sewage-treatment products — real-time dashboards for plant telemetry (sensors, pumps, valves), status and service reporting, and role-based site and customer administration. FastAPI services on Google Cloud with Firestore, a React / Next.js front end.',
+      'Built the web platform behind the company’s water- and sewage-treatment products: real-time dashboards over live plant telemetry (sensors, pumps, valves), status and service reporting, and role-based administration for sites and customers. FastAPI services on Google Cloud with Firestore, behind a React / Next.js front end.',
     stack: [
       'Next.js',
       'React',
